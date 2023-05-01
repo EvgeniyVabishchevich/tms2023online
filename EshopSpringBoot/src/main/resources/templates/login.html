@@ -19,12 +19,12 @@
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" placeholder="Login" th:field="*{login}">
+                <input type="text" class="form-control" placeholder="Login" th:id="login" th:name="login" th:value="admin">
                 <label th:for="login" class="form-label">Login</label>
                 <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="form-text text-danger"></div>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" placeholder="Password" th:field="*{password}">
+                <input type="password" class="form-control" placeholder="Password" th:id="password" th:name="password" th:value="admin">
                 <label th:for="password">Password</label>
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="form-text text-danger"></p>
             </div>
