@@ -17,7 +17,7 @@ import java.io.IOException;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/images")
+@RequestMapping("/db/images")
 public class ImageController {
 
     private final ImageServiceAware imageService;

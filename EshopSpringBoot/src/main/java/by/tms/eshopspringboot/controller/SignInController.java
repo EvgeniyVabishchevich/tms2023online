@@ -41,7 +41,7 @@ public class SignInController {
     public ModelAndView logIn(@Valid @ModelAttribute("unknownUser") User newUser, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasFieldErrors("login") || bindingResult.hasFieldErrors("password")) {
             modelAndView.setViewName(Page.LOGIN.getValue());
             return modelAndView;
         }
