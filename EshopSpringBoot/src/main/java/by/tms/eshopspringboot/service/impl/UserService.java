@@ -12,8 +12,8 @@ public class UserService implements UserServiceAware {
     private final UserRepository userRepository;
 
     @Override
-    public void addUser(User user, String password) {
-        userRepository.addUser(user, password);
+    public void addUser(User user) {
+        userRepository.addUser(user);
     }
 
     @Override

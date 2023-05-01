@@ -38,7 +38,7 @@ public class SignInController {
     }
 
     @PostMapping
-    public ModelAndView signIn(@Valid @ModelAttribute("unknownUser") User newUser, BindingResult bindingResult) {
+    public ModelAndView logIn(@Valid @ModelAttribute("unknownUser") User newUser, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {

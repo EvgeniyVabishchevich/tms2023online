@@ -21,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public void addUser(User user, String password) {
+    public void addUser(User user) {
         String sql = "INSERT INTO users (login, password, user_type, name, surname, email, birthday) " +
                 "VALUES (?, ?, ?::privelege, ?, ?, ?, ?)";
 

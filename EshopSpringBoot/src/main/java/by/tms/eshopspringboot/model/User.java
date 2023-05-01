@@ -1,7 +1,10 @@
 package by.tms.eshopspringboot.model;
 
 import by.tms.eshopspringboot.model.enums.UserType;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -14,9 +17,20 @@ public class User {
     private UserType userType;
     @NotEmpty(message = "Login field is empty")
     private String login;
+
+    @NotEmpty(message = "Name field is empty")
+    @Pattern(regexp = "[A-Z][a-z]*", message = "Name first letter must be capitalized and contain at least 2 symbols")
     private String name;
+
+    @NotEmpty(message = "Surname field is empty")
+    @Pattern(regexp = "[A-Z][a-z]*", message = "Surname first letter must be capitalized and contain at least 2 symbols")
     private String surname;
+
+    @NotEmpty(message = "Email field is empty")
+    @Email(message = "Incorrect email address")
     private String email;
+
+    @Past(message = "This date must be in past")
     private LocalDate birthday;
     private int id;
     @NotEmpty(message = "Password field is empty")

@@ -4,7 +4,7 @@ import by.tms.eshopspringboot.model.User;
 import by.tms.eshopspringboot.model.enums.UserType;
 
 public interface UserRepository {
-    void addUser(User user, String password);
+    void addUser(User user);
 
     User getUserByLogin(String login);
 
