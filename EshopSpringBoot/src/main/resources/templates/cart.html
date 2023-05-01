@@ -8,9 +8,7 @@
 
 <div th:insert="~{header.html}"></div>
 
-<div th:if="${productsMap.size() == 0}">
-    <label th:text="'Products list is empty now.'"></label>
-</div>
+<p th:if="${productsMap.size() == 0}" th:text="'Products list is empty now.'" class="ms-3"></p>
 
 <div th:if="${productsMap.size() > 0}">
     <div th:each="product, iteration : ${productsMap.keySet()}"
