@@ -7,13 +7,11 @@ import by.tms.eshopspringboot.service.ImageServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +26,7 @@ import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.IMAGE;
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.IMAGE_NAME;
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.NAME;
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.PRICE;
+import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @Controller
@@ -47,8 +46,7 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-category")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(value = OK)
     public void createNewCategory(@RequestParam(IMAGE) MultipartFile image, @RequestParam(IMAGE_NAME) String imageName,
                                   @RequestParam(NAME) String name) {
         try (InputStream fileStream = image.getInputStream()) {
@@ -63,8 +61,7 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-product")
-    @ResponseBody
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = OK)
     public void execute(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name, @RequestParam(IMAGE_NAME) String imageName,
                         @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
                         @RequestParam(PRICE) String price) {

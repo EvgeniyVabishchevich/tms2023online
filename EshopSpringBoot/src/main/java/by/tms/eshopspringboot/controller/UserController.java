@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import static by.tms.eshopspringboot.model.enums.Page.USER;
 
-
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor

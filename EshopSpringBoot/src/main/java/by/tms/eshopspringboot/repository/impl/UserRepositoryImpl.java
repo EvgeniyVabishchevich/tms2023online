@@ -44,7 +44,9 @@ public class UserRepositoryImpl implements UserRepository {
             if (rs.next()) {
                 UserRowMapper userRowMapper = new UserRowMapper();
                 return userRowMapper.mapRow(rs, 1);
-            } else return null;
+            } else {
+                return null;
+            }
         }, login, password);
     }
 

@@ -18,7 +18,6 @@ import java.util.Map;
 
 import static by.tms.eshopspringboot.model.enums.Page.BUY;
 
-
 @Controller
 @RequestMapping("/buy")
 @RequiredArgsConstructor

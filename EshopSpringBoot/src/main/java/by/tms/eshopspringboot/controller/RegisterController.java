@@ -36,8 +36,9 @@ public class RegisterController {
                                  @RequestParam(PASSWORD_REPEAT) String passwordRepeat) {
         ModelAndView modelAndView = new ModelAndView();
 
-        if (!newUser.getPassword().equals(passwordRepeat))
+        if (!newUser.getPassword().equals(passwordRepeat)) {
             bindingResult.rejectValue("password", "400", "Entered passwords not equal.");
+        }
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName(REGISTER.getValue());

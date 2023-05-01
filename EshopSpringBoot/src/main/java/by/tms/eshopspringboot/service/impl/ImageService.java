@@ -5,8 +5,6 @@ import by.tms.eshopspringboot.service.ImageServiceAware;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
-
 @Service
 @RequiredArgsConstructor
 public class ImageService implements ImageServiceAware {

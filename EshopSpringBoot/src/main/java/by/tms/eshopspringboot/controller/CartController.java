@@ -16,7 +16,6 @@ import java.util.Map;
 
 import static by.tms.eshopspringboot.model.enums.Page.CART;
 
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/cart")

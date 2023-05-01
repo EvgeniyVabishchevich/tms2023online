@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import static by.tms.eshopspringboot.model.enums.Page.ERROR404;
 import static by.tms.eshopspringboot.model.enums.Page.PRODUCTS;
 
-
 @Controller
 @RequestMapping("/products")
 @RequiredArgsConstructor

@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.IOException;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @Controller
@@ -23,7 +24,7 @@ public class ImageController {
     private final ImageServiceAware imageService;
 
     @GetMapping("/{imageName}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = OK)
     public void getImage(@PathVariable String imageName, HttpServletResponse response, HttpServletRequest request) {
         byte[] image = imageService.getImageByName(imageName);
         response.setContentType(request.getServletContext().getMimeType(imageName));

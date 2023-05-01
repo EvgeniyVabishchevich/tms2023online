@@ -13,7 +13,8 @@
 </div>
 
 <div th:if="${productsMap.size() > 0}">
-    <div th:each="product, iteration : ${productsMap.keySet()}" th:with="allProductsPrice=${productsMap.get(product) * product.getPrice()}">
+    <div th:each="product, iteration : ${productsMap.keySet()}"
+         th:with="allProductsPrice=${productsMap.get(product) * product.getPrice()}">
         <div class="row mb-3" th:id="'row_' + ${product.getId()}">
             <div class="col">
                 <div class="container-sm">

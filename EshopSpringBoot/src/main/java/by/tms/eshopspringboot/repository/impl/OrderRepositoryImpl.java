@@ -11,14 +11,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 @Slf4j
 @Repository
@@ -26,6 +23,7 @@ import java.util.Map;
 public class OrderRepositoryImpl implements OrderRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ProductRepository productRepository;
+
     @Override
     public List<Order> getOrdersByUserId(int userId) {
         String sql = "SELECT * FROM orders WHERE user_id = ?";

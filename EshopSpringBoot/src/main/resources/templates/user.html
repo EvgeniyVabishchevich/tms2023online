@@ -12,12 +12,12 @@
 
 <div th:if="${session.user.getUserType().name() == 'ADMIN'}">
     <label th:text="'You have admin privileges, press link to check them.'"></label><br>
-    <a th:href="@{/admin}" >Admin tools</a><br>
+    <a th:href="@{/admin}">Admin tools</a><br>
     <hr>
 </div>
 
 <div th:each="order : ${orders}">
-    <label  th:text="'Order ' + ${order.getId()} + ' / Date : ' + ${order.getDate()}"></label><br>
+    <label th:text="'Order ' + ${order.getId()} + ' / Date : ' + ${order.getDate()}"></label><br>
     <div th:each="product : ${order.getProducts.keySet()}">
         <br>
         <label th:text="'Product ' + ${product.getName()}"></label><br>

@@ -28,11 +28,11 @@ public class SearchController {
 
     @GetMapping
     @ResponseBody
-    public ModelAndView searchResult(@RequestParam(name = (RequestParamsConstants.SEARCH_REQUEST), defaultValue = "")
+    public ModelAndView searchResult(@RequestParam(name = RequestParamsConstants.SEARCH_REQUEST, defaultValue = "")
                                      String searchRequest,
-                                     @RequestParam(name = (RequestParamsConstants.MIN_PRICE), defaultValue = "0") String minPrice,
-                                     @RequestParam(name = (RequestParamsConstants.MAX_PRICE), defaultValue = "-1") String maxPrice,
-                                     @RequestParam(name = (RequestParamsConstants.CATEGORY), defaultValue = ALL_CATEGORIES) String category) {
+                                     @RequestParam(name = RequestParamsConstants.MIN_PRICE, defaultValue = "0") String minPrice,
+                                     @RequestParam(name = RequestParamsConstants.MAX_PRICE, defaultValue = "-1") String maxPrice,
+                                     @RequestParam(name = RequestParamsConstants.CATEGORY, defaultValue = ALL_CATEGORIES) String category) {
         ModelAndView modelAndView = new ModelAndView();
 
         List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
