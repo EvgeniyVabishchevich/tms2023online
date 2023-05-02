@@ -20,4 +20,5 @@ public interface RequestParamsConstants {
     String MAX_PRICE = "maxPrice";
     String CATEGORY = "category";
     String PRODUCTS_MAP = "productsMap";
+    String SELECTED_CATEGORY = "selectedCategory";
 }

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static by.tms.eshopspringboot.model.enums.Page.SEARCH;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,11 +29,11 @@ public class SearchController {
 
     @GetMapping
     @ResponseBody
-    public ModelAndView searchResult(@RequestParam(name = RequestParamsConstants.SEARCH_REQUEST, defaultValue = "")
+    public ModelAndView searchResult(@RequestParam(name = SEARCH_REQUEST, defaultValue = "")
                                      String searchRequest,
-                                     @RequestParam(name = RequestParamsConstants.MIN_PRICE, defaultValue = "0") String minPrice,
-                                     @RequestParam(name = RequestParamsConstants.MAX_PRICE, defaultValue = "-1") String maxPrice,
-                                     @RequestParam(name = RequestParamsConstants.CATEGORY, defaultValue = ALL_CATEGORIES) String category) {
+                                     @RequestParam(name = MIN_PRICE, defaultValue = "0") String minPrice,
+                                     @RequestParam(name = MAX_PRICE, defaultValue = "-1") String maxPrice,
+                                     @RequestParam(name = CATEGORY, defaultValue = ALL_CATEGORIES) String category) {
         ModelAndView modelAndView = new ModelAndView();
 
         List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
@@ -50,6 +51,12 @@ public class SearchController {
 
         modelAndView.addObject("categories", categoryService.getCategories());
         modelAndView.addObject("products", searchResult);
+
+        modelAndView.addObject(SEARCH_REQUEST, searchRequest);
+        modelAndView.addObject(MIN_PRICE, minPrice);
+        modelAndView.addObject(MAX_PRICE, maxPrice);
+        modelAndView.addObject(SELECTED_CATEGORY, category);
+
         modelAndView.setViewName(SEARCH.getValue());
         return modelAndView;
     }
