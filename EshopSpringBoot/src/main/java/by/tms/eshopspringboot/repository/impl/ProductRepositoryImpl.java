@@ -21,9 +21,9 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void addProduct(Product product) {
-        String sql = "INSERT INTO products (name, description, price, image_name, category_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO products (name, description, price, image_id, category_id) VALUES (?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(sql, product.getName(), product.getDescription(), product.getPrice(), product.getImageName(),
+        jdbcTemplate.update(sql, product.getName(), product.getDescription(), product.getPrice(), product.getImageId(),
                 product.getCategoryId());
     }
 
@@ -58,7 +58,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setName(rs.getString("name"));
             product.setDescription(rs.getString("description"));
             product.setPrice(rs.getBigDecimal("price"));
-            product.setImageName(rs.getString("image_name"));
+            product.setImageId(rs.getInt("image_id"));
             product.setCategoryId(rs.getInt("category_id"));
 
             return product;

@@ -5,7 +5,7 @@ import by.tms.eshopspringboot.model.Category;
 import java.util.List;
 
 public interface CategoryRepository {
-    void addCategory(String name, String imageName);
+    void addCategory(String name, int imageId);
 
     List<Category> getCategories();
 

@@ -23,11 +23,11 @@ public class ImageController {
 
     private final ImageServiceAware imageService;
 
-    @GetMapping("/{imageName}")
+    @GetMapping("/{imageId}")
     @ResponseStatus(value = OK)
-    public void getImage(@PathVariable String imageName, HttpServletResponse response, HttpServletRequest request) {
-        byte[] image = imageService.getImageByName(imageName);
-        response.setContentType(request.getServletContext().getMimeType(imageName));
+    public void getImage(@PathVariable int imageId, HttpServletResponse response, HttpServletRequest request) {
+        byte[] image = imageService.getImageById(imageId);
+        response.setContentType(imageService.getImageContentTypeById(imageId));
         response.setContentLength(image.length);
 
         try {

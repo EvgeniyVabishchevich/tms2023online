@@ -1,7 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
 import by.tms.eshopspringboot.model.Product;
-import by.tms.eshopspringboot.model.enums.RequestParamsConstants;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static by.tms.eshopspringboot.model.enums.Page.SEARCH;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.*;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.CATEGORY;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.MAX_PRICE;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.MIN_PRICE;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.SEARCH_REQUEST;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.SELECTED_CATEGORY;
 
 @Controller
 @RequiredArgsConstructor

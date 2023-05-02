@@ -14,8 +14,8 @@ public class CategoryService implements CategoryServiceAware {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public void addCategory(String name, String imageName) {
-        categoryRepository.addCategory(name, imageName);
+    public void addCategory(String name, int imageId) {
+        categoryRepository.addCategory(name, imageId);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package by.tms.eshopspringboot.service;
 
 public interface ImageServiceAware {
-    void addImage(String imageName, byte[] imageBytes);
+    int addImage(String imageContentType, byte[] imageBytes);
 
-    byte[] getImageByName(String name);
+    byte[] getImageById(int id);
+
+    String getImageContentTypeById(int id);
 }

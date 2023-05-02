@@ -7,7 +7,7 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    private String imageName;
+    private int imageId;
     private int categoryId;
 
     public int getCategoryId() {
@@ -28,20 +28,20 @@ public class Product {
         this.price = price;
     }
 
-    public Product(String name, String description, BigDecimal price, String imageName, int categoryId) {
+    public Product(String name, String description, BigDecimal price, int imageId, int categoryId) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imageName = imageName;
+        this.imageId = imageId;
         this.categoryId = categoryId;
     }
 
-    public String getImageName() {
-        return imageName;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public int getId() {

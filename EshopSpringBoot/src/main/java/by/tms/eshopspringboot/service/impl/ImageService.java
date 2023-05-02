@@ -11,12 +11,17 @@ public class ImageService implements ImageServiceAware {
     private final ImageRepository imageRepository;
 
     @Override
-    public void addImage(String imageName, byte[] imageBytes) {
-        imageRepository.addImage(imageName, imageBytes);
+    public int addImage(String imageContentType, byte[] imageBytes) {
+        return imageRepository.addImage(imageContentType, imageBytes);
     }
 
     @Override
-    public byte[] getImageByName(String name) {
-        return imageRepository.getImageByName(name);
+    public byte[] getImageById(int id) {
+        return imageRepository.getImageById(id);
+    }
+
+    @Override
+    public String getImageContentTypeById(int id) {
+        return imageRepository.getImageContentTypeById(id);
     }
 }

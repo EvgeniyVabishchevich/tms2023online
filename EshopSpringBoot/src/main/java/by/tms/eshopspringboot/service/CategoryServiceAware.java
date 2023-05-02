@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryServiceAware {
 
-    void addCategory(String name, String imageName);
+    void addCategory(String name, int imageId);
 
     int getCategoryId(String name);
 

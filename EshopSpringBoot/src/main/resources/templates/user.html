@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <img style="height: 10vh;"
-                                     th:src="@{/db/images/{imageName}(imageName=${product.getImageName()})}" alt="...">
+                                     th:src="@{/db/images/{imageId}(imageId=${product.getImageId()})}" alt="...">
                             </div>
                             <div class="col-10">
                                 <label th:text="'Product : ' + ${product.getName()}"></label><br>

@@ -5,28 +5,28 @@ import java.util.List;
 public class Category {
     private int id;
     private String name;
-    private String imageName;
+    private int imageId;
     private List<Product> productList;
 
-    public Category(int id, String name, String imageName, List<Product> productList) {
+    public Category(int id, String name, int imageId, List<Product> productList) {
         this.id = id;
         this.name = name;
-        this.imageName = imageName;
+        this.imageId = imageId;
         this.productList = productList;
     }
 
     public Category() {
     }
 
-    public Category(String name, String imageName, List<Product> productList) {
+    public Category(String name, int imageId, List<Product> productList) {
         this.name = name;
-        this.imageName = imageName;
+        this.imageId = imageId;
         this.productList = productList;
     }
 
-    public Category(String name, String imageName) {
+    public Category(String name, int imageId) {
         this.name = name;
-        this.imageName = imageName;
+        this.imageId = imageId;
     }
 
     public int getId() {
@@ -45,12 +45,12 @@ public class Category {
         this.name = name;
     }
 
-    public String getImageName() {
-        return imageName;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public List<Product> getProductList() {

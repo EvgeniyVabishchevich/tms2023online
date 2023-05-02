@@ -21,10 +21,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private final ProductRepository productRepository;
 
     @Override
-    public void addCategory(String name, String imageName) {
-        String sql = "INSERT INTO categories (name, image_name) VALUES (?, ?)";
+    public void addCategory(String name, int imageId) {
+        String sql = "INSERT INTO categories (name, image_id) VALUES (?, ?)";
 
-        jdbcTemplate.update(sql, name, imageName);
+        jdbcTemplate.update(sql, name, imageId);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
             category.setId(rs.getInt("id"));
             category.setName(rs.getString("name"));
-            category.setImageName(rs.getString("image_name"));
+            category.setImageId(rs.getInt("image_id"));
             category.setProductList(productRepository.getProductsByCategoryId(category.getId()));
 
             return category;
