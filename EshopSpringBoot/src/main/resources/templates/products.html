@@ -14,8 +14,8 @@
     <div class="row justify-content-start" th:each="product : ${products}">
         <div class="card col-4 text-center border-2 border-dark m-3">
             <div class="row g-0">
-                <div class="col-4">
-                    <img style="height: 25vh;" class="card-img-bottom object-fit-contain p-1 border-end border-dark"
+                <div class="col-4 h-100 border-end border-dark d-flex align-items-center">
+                    <img class="img-fluid"
                          th:src="@{/db/images/{imageName}(imageName=${product.getImageName()})}">
                 </div>
                 <div class="col-8">
