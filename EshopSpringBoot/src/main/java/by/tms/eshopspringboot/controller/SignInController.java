@@ -46,10 +46,10 @@ public class SignInController {
             return modelAndView;
         }
 
-        if (userService.validateUser(newUser.getLogin(), newUser.getPassword())) {
+        if (userService.existsByLoginAndPassword(newUser.getLogin(), newUser.getPassword())) {
             ThreadContext.put("conversationId", UUID.randomUUID().toString());
             modelAndView.addObject("cartProductsMap", new HashMap<Integer, Integer>());
-            modelAndView.addObject("user", userService.getUserByLogin(newUser.getLogin()));
+            modelAndView.addObject("user", userService.findByLogin(newUser.getLogin()));
 
             modelAndView.addObject("categories", categoryService.getCategories());
             modelAndView.setViewName(CATEGORIES.getValue());

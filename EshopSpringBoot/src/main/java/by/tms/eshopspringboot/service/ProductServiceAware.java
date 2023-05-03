@@ -8,13 +8,11 @@ import java.util.Map;
 
 public interface ProductServiceAware {
 
-    void addProduct(Product product);
+    void saveProduct(Product product);
 
-    List<Product> getProductsByCategoryId(int categoryId);
+    Product findById(int id);
 
-    Product getProductById(int id);
-
-    Map<Product, Integer> getProductsByIds(HashMap<Integer, Integer> idAmountMap);
+    Map<Product, Integer> getProductsByIds(Map<Integer, Integer> idAmountMap);
 
     List<Product> getProductsByTextInNameAndDescription(String searchRequest);
 }

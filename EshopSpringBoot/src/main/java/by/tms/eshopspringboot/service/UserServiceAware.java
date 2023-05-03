@@ -5,9 +5,7 @@ import by.tms.eshopspringboot.model.User;
 public interface UserServiceAware {
     void addUser(User user);
 
-    User getUserByLogin(String login);
+    User findByLogin(String login);
 
-    boolean loginInUse(String login);
-
-    boolean validateUser(String login, String password);
+    boolean existsByLoginAndPassword(String login, String password);
 }

@@ -70,7 +70,7 @@ public class AdminToolsController {
 
             Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.getCategoryId(category));
 
-            productService.addProduct(product);
+            productService.saveProduct(product);
         } catch (IOException e) {
             log.error("Error, while getting image from request", e);
         }

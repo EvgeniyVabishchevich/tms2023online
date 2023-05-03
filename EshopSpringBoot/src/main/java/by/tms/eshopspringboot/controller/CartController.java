@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static by.tms.eshopspringboot.model.enums.Page.CART;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,14 +25,14 @@ public class CartController {
     private final ProductServiceAware productService;
 
     @GetMapping
-    public ModelAndView showCart(@SessionAttribute("cartProductsMap") HashMap<Integer, Integer> cartProductsMap) {
+    public ModelAndView showCart(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap) {
         ModelAndView modelAndView = new ModelAndView(CART.getValue());
 
         Map<Product, Integer> productsMap = productService.getProductsByIds(cartProductsMap);
         BigDecimal totalPrice = productsMap.keySet().stream()
                 .map(product -> product.getPrice().multiply(BigDecimal.valueOf(productsMap.get(product)))).reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        modelAndView.addObject(RequestParamsConstants.PRODUCTS_MAP, productsMap);
+        modelAndView.addObject(PRODUCTS_MAP, productsMap);
         modelAndView.addObject("totalPrice", totalPrice);
 
         return modelAndView;

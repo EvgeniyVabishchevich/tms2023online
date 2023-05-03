@@ -3,7 +3,6 @@ package by.tms.eshopspringboot.repository.impl;
 import by.tms.eshopspringboot.model.Order;
 import by.tms.eshopspringboot.model.Product;
 import by.tms.eshopspringboot.repository.OrderRepository;
-import by.tms.eshopspringboot.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
     private final JdbcTemplate jdbcTemplate;
-    private final ProductRepository productRepository;
+    private final ProductRepositoryImpl productRepositoryImpl;
 
     @Override
     public List<Order> getOrdersByUserId(int userId) {
@@ -53,7 +52,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             Map<String, String> productsMap = (Map<String, String>) rs.getObject(4);
             Map<Product, Integer> products = new HashMap<>();
             for (String id : productsMap.keySet()) {
-                products.put(productRepository.getProductById(Integer.parseInt(id)), Integer.parseInt(productsMap.get(id)));
+                products.put(productRepositoryImpl.findById(Integer.parseInt(id)).orElseThrow(), Integer.parseInt(productsMap.get(id)));
             }
             order.setProducts(products);
 

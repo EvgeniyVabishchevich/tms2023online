@@ -2,7 +2,6 @@ package by.tms.eshopspringboot.repository.impl;
 
 import by.tms.eshopspringboot.model.Category;
 import by.tms.eshopspringboot.repository.CategoryRepository;
-import by.tms.eshopspringboot.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryRepositoryImpl implements CategoryRepository {
     private final JdbcTemplate jdbcTemplate;
-    private final ProductRepository productRepository;
+    private final ProductRepositoryImpl productRepositoryImpl;
 
     @Override
     public void addCategory(String name, int imageId) {
@@ -56,7 +55,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
             category.setId(rs.getInt("id"));
             category.setName(rs.getString("name"));
             category.setImageId(rs.getInt("image_id"));
-            category.setProductList(productRepository.getProductsByCategoryId(category.getId()));
+            category.setProductList(productRepositoryImpl.findByCategoryId(category.getId()));
 
             return category;
         }

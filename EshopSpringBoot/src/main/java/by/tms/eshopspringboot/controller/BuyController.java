@@ -27,12 +27,12 @@ public class BuyController {
     private final ProductServiceAware productService;
 
     @GetMapping
-    public ModelAndView buy(@SessionAttribute("cartProductsMap") HashMap<Integer, Integer> cartProductsMap,
+    public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap,
                             @SessionAttribute("user") User user) {
         int userId = user.getId();
 
         Map<Product, Integer> products = new HashMap<>();
-        cartProductsMap.keySet().forEach(id -> products.put(productService.getProductById(id), cartProductsMap.get(id)));
+        cartProductsMap.keySet().forEach(id -> products.put(productService.findById(id), cartProductsMap.get(id)));
 
         Order order = new Order(LocalDate.now(), products);
         orderService.addOrder(userId, order);

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.PRODUCT_ID;
 import static org.springframework.http.HttpStatus.OK;
@@ -17,7 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 public class AddProductCartController {
     @PostMapping
     @ResponseStatus(value = OK)
-    public void addProduct(@RequestParam(PRODUCT_ID) int productId, @SessionAttribute("cartProductsMap") HashMap<Integer, Integer> cartProductsMap) {
+    public void addProduct(@RequestParam(PRODUCT_ID) int productId, @SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap) {
         cartProductsMap.merge(productId, 1, Integer::sum);
     }
 }

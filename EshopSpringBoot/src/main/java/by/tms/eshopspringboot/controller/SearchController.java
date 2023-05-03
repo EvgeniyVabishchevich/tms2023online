@@ -14,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import static by.tms.eshopspringboot.model.enums.Page.SEARCH;
+import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.*;
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.CATEGORY;
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.MAX_PRICE;
 import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.MIN_PRICE;
@@ -55,8 +55,8 @@ public class SearchController {
                     return notTooSmallPrice && notTooBigPrice && isCategoryOk;
                 }).toList();
 
-        modelAndView.addObject(RequestParamsConstants.CATEGORIES, categoryService.getCategories());
-        modelAndView.addObject(RequestParamsConstants.PRODUCTS, searchResult);
+        modelAndView.addObject(CATEGORIES, categoryService.getCategories());
+        modelAndView.addObject(PRODUCTS, searchResult);
 
         modelAndView.addObject(SEARCH_REQUEST, searchRequest);
         modelAndView.addObject(MIN_PRICE, minPrice);

@@ -25,7 +25,7 @@ public class ImageController {
 
     @GetMapping("/{imageId}")
     @ResponseStatus(value = OK)
-    public void getImage(@PathVariable int imageId, HttpServletResponse response, HttpServletRequest request) {
+    public void getImage(@PathVariable int imageId, HttpServletResponse response) {
         byte[] image = imageService.getImageById(imageId);
         response.setContentType(imageService.getImageContentTypeById(imageId));
         response.setContentLength(image.length);
