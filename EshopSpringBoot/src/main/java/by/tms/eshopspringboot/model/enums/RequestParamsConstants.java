@@ -21,4 +21,5 @@ public interface RequestParamsConstants {
     String CATEGORY = "category";
     String PRODUCTS_MAP = "productsMap";
     String SELECTED_CATEGORY = "selectedCategory";
+    String PRODUCTS = "products";
 }
