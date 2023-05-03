@@ -1,9 +1,10 @@
 package by.tms.eshopspringboot.controller;
 
 import by.tms.eshopspringboot.model.Product;
-import by.tms.eshopspringboot.model.enums.RequestParamsConstants;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
+import by.tms.eshopspringboot.utils.Constants;
+import by.tms.eshopspringboot.utils.Constants.Attributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static by.tms.eshopspringboot.model.enums.Page.SEARCH;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.*;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.CATEGORY;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.MAX_PRICE;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.MIN_PRICE;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.SEARCH_REQUEST;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.SELECTED_CATEGORY;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.CATEGORIES;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.PRODUCTS;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.SELECTED_CATEGORY;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.CATEGORY;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MAX_PRICE;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MIN_PRICE;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.SEARCH_REQUEST;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,12 +60,12 @@ public class SearchController {
         modelAndView.addObject(CATEGORIES, categoryService.getCategories());
         modelAndView.addObject(PRODUCTS, searchResult);
 
-        modelAndView.addObject(SEARCH_REQUEST, searchRequest);
-        modelAndView.addObject(MIN_PRICE, minPrice);
-        modelAndView.addObject(MAX_PRICE, maxPrice);
+        modelAndView.addObject(Attributes.SEARCH_REQUEST, searchRequest);
+        modelAndView.addObject(Attributes.MIN_PRICE, minPrice);
+        modelAndView.addObject(Attributes.MAX_PRICE, maxPrice);
         modelAndView.addObject(SELECTED_CATEGORY, category);
 
-        modelAndView.setViewName(SEARCH.getValue());
+        modelAndView.setViewName(SEARCH);
         return modelAndView;
     }
 }

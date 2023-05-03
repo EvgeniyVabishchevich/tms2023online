@@ -1,7 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
 import by.tms.eshopspringboot.model.Product;
-import by.tms.eshopspringboot.model.enums.Page;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
@@ -20,11 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.CATEGORY;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.DESCRIPTION;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.IMAGE;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.NAME;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.PRICE;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.ADMIN;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.CATEGORY;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.DESCRIPTION;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.IMAGE;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.NAME;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRICE;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
@@ -40,7 +40,7 @@ public class AdminToolsController {
     public ModelAndView showPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("categories", categoryService.getCategories());
-        modelAndView.setViewName(Page.ADMIN.getValue());
+        modelAndView.setViewName(ADMIN);
         return modelAndView;
     }
 

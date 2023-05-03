@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import static by.tms.eshopspringboot.model.enums.Page.REGISTER;
-import static by.tms.eshopspringboot.model.enums.RequestParamsConstants.PASSWORD_REPEAT;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.REGISTER;
+import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PASSWORD_REPEAT;
 
 @Controller
 @RequestMapping("/register")
@@ -26,7 +26,7 @@ public class RegisterController {
 
     @GetMapping
     public ModelAndView registerPage() {
-        ModelAndView modelAndView = new ModelAndView(REGISTER.getValue());
+        ModelAndView modelAndView = new ModelAndView(REGISTER);
         modelAndView.addObject("newUser", new User());
         return modelAndView;
     }
@@ -41,7 +41,7 @@ public class RegisterController {
         }
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName(REGISTER.getValue());
+            modelAndView.setViewName(REGISTER);
             return modelAndView;
         } else {
             newUser.setUserType(UserType.CLIENT);

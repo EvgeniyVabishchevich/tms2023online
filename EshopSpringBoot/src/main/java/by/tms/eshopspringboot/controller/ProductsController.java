@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import static by.tms.eshopspringboot.model.enums.Page.ERROR404;
-import static by.tms.eshopspringboot.model.enums.Page.PRODUCTS;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.ERROR404;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.PRODUCTS;
 
 @Controller
 @RequestMapping("/products")
@@ -26,10 +26,10 @@ public class ProductsController {
 
         if (category == null) {
             modelAndView.addObject("errorMsg", "No such category");
-            modelAndView.setViewName(ERROR404.getValue());
+            modelAndView.setViewName(ERROR404);
         } else {
             modelAndView.addObject("category", category);
-            modelAndView.setViewName(PRODUCTS.getValue());
+            modelAndView.setViewName(PRODUCTS);
         }
         return modelAndView;
     }

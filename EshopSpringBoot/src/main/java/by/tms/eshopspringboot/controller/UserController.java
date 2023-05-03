@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import static by.tms.eshopspringboot.model.enums.Page.USER;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.USER;
 
 @Controller
 @RequestMapping("/user")
@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping
     public ModelAndView execute(@ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView(USER.getValue());
+        ModelAndView modelAndView = new ModelAndView(USER);
         modelAndView.addObject("orders", orderService.getOrdersByUserId(user.getId()));
         modelAndView.addObject("categories", categoryService.getCategories());
         return modelAndView;

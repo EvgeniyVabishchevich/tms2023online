@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.tms.eshopspringboot.model.enums.Page.BUY;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.BUY;
 
 @Controller
 @RequestMapping("/buy")
@@ -39,6 +39,6 @@ public class BuyController {
 
         cartProductsMap.clear();
 
-        return new ModelAndView(BUY.getValue());
+        return new ModelAndView(BUY);
     }
 }
