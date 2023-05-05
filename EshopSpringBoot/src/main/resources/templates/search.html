@@ -1,0 +1,77 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{scriptsLinks.html}">
+    <title>Search</title>
+</head>
+<body>
+
+<div th:insert="~{header.html}"></div>
+
+<div class="row justify-content-center">
+    <div class="col-2">
+        <input th:value="${searchRequest}" th:id="searchRequest" th:name="searchRequest" th:form="filterForm"
+               placeholder="Search" type="text" class="form-control border-success">
+    </div>
+    <button type="submit" th:id="searchButton" class="col-1 btn btn-success">Search</button>
+</div>
+
+<div class="row">
+    <span th:id="searchResult" class="col-8">
+        <div class="row justify-content-start" th:each="product : ${products}">
+            <div class="card col-4 text-center border-2 border-dark m-3">
+                <div class="row g-0">
+                    <div class="col-4 h-100 border-end border-dark d-flex align-items-center">
+                        <img class="img-fluid"
+                             th:src="@{/db/images/{imageId}(imageId=${product.getImageId()})}">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.getName()}"></h5>
+
+                            <h4 class="card-subtitle text-start" th:text="'Description :'"></h4>
+                            <p class="card-text text-start" th:text="${product.getDescription()}"></p>
+
+                            <h4 class="card-subtitle text-start" th:text="'Price :'"></h4>
+                            <p class="card-text text-start" th:text="${product.getPrice() + '$'}"></p>
+
+                            <button onclick="addProductId(this.value)" th:value="${product.getId()}"
+                                    class="btn btn-success">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </span>
+
+    <div class="col-4">
+
+        <form th:id="filterForm" th:method="get" th:action="@{/search}"
+              class="border border-3 border-success rounded m-2 p-1">
+            <h1 class="">Filter</h1><br>
+
+            <label th:for="category" class="form-label ms-2">Category:</label>
+            <select th:id="category" th:name="category" th:form="filterForm" class="form-select border-success">
+                <option value="All">All</option>
+                <div th:each="categoryEl : ${categories}">
+                    <option th:if="${categoryEl.getName().equals(selectedCategory)}" th:value="${categoryEl.getName()}"
+                            th:text="${categoryEl.getName()}" selected></option>
+                    <option th:if="${!categoryEl.getName().equals(selectedCategory)}" th:value="${categoryEl.getName()}"
+                            th:text="${categoryEl.getName()}"></option>
+                </div>
+            </select><br>
+
+            <label th:for="minPrice" th:text="'Min price'" class="form-label"></label>
+            <input type="number" placeholder="0" th:name="minPrice" th:id="minPrice" th:value="${minPrice}"
+                   class="form-control border-success">
+
+            <label th:for="maxPrice" th:text="'Max price'" class="form-label"></label>
+            <input type="number" placeholder="0" th:name="maxPrice" th:id="maxPrice" th:value="${maxPrice}"
+                   class="form-control border-success">
+
+            <button type="submit" class="btn btn-success mt-1">Apply</button>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

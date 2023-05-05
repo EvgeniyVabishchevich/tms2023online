@@ -1,0 +1,28 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{scriptsLinks.html}">
+    <title>Error 404</title>
+</head>
+
+<body>
+
+<div th:insert="~{header.html}"></div>
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">404</h1>
+        <div th:if="${errorMsg != null}">
+            <p class="fs-3"><span class="text-danger">Opps!</span> ${errorMsg}</p>
+        </div>
+        <div th:if="${errorMsg == null}">
+            <p class="fs-3"><span class="text-danger">Opps!</span> Page not found.</p>
+            <p class="lead">
+                The page you’re looking for doesn’t exist.
+            </p>
+        </div>
+        <a href="/categories?page=categories" class="btn btn-primary">Go Home</a>
+    </div>
+</div>
+</body>
+
+</html>

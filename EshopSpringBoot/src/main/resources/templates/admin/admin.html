@@ -1,0 +1,120 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{scriptsLinks.html}">
+    <title>Admin tools</title>
+</head>
+
+<body>
+
+<div th:insert="~{header.html}"></div>
+
+<div class="row m-1">
+    <button onclick=hide("categoryForm") class="btn btn-success">Add category</button>
+    <form id="categoryForm" enctype="multipart/form-data" style="display: none"
+          class="col-6 border border-success rounded m-1 p-3">
+
+        <div class="form-floating mb-2 border border-success rounded">
+            <input th:id="categoryName" th:name="name" type="text" placeholder="categoryName" class="form-control">
+            <label th:for="categoryName" th:text="'Name'" class="form-label"></label>
+        </div>
+
+        <div class="form-floating mb-2 border border-success rounded">
+            <input th:id="categoryImage" th:name="image" type="file" accept="image/*" placeholder="Image"
+                   class="form-control">
+            <label th:for="categoryImage" th:text="'Image'" class="form-label"></label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add</button>
+    </form>
+</div>
+
+<div class="row m-1">
+    <button onclick=hide("productForm") class="btn btn-success">Add product</button>
+    <form id="productForm" enctype="multipart/form-data" style="display: none"
+          class="col-6 border border-success rounded m-1 p-3">
+
+        <label th:for="categorySelection" class="form-label">Category:</label>
+        <select th:name="category" th:id="categorySelection" form="productForm"
+                class="form-select mb-2 border border-success rounded">
+            <option th:each="category : ${categories}" th:value="${category.getName()}"
+                    th:text="${category.getName()}"></option>
+        </select><br>
+
+        <div class="form-floating mb-2 border border-success rounded">
+            <input th:id="productName" th:name="name" type="text" placeholder="productName" class="form-control">
+            <label th:for="productName" th:text="'Name'" class="form-label"></label>
+        </div>
+
+        <div class="form-floating mb-2 border border-success rounded">
+            <input th:id="productImage" th:name="image" type="file" accept="image/*" placeholder="Image"
+                   class="form-control">
+            <label th:for="productImage" th:text="'Image'" class="form-label"></label>
+        </div>
+
+        <div class="form-floating mb-2 border border-success rounded">
+            <input th:id="price" th:name="price" type="text" placeholder="price" class="form-control">
+            <label th:for="price" th:text="'Price'" class="form-label"></label>
+        </div>
+
+        <div class="input-group border border-success rounded mb-2">
+            <span class="input-group-text">Description</span>
+            <textarea th:id="description" th:name="description" class="form-control"
+                      aria-label="With textarea"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+<script>
+    function hide(formId) {
+        const form = document.getElementById(formId);
+        if (form.style.display == 'none') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+</script>
+
+<script>
+    $('#categoryForm').on('submit', (function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/admin/new-category',
+            type: 'post',
+            data: new FormData(this),
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("Category added")
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        })
+    }));
+
+    $('#productForm').on('submit', (function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/admin/new-product',
+            type: 'post',
+            data: new FormData(this),
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("Product added")
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        })
+    }));
+</script>
+</body>
+</html>

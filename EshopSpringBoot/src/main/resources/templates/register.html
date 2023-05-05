@@ -1,0 +1,60 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{scriptsLinks.html}">
+    <title>Registration</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div th:insert="~{header.html}"></div>
+
+<form method="post" th:action="@{/register}" th:object="${newUser}" class="col-6 border border-success rounded m-1 p-3">
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:field="*{login}" type="text" class="form-control" placeholder="login">
+        <label th:for="login" class="form-label">Login</label>
+        <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="form-text text-danger"></p>
+    </div>
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:field="*{name}" type="text" class="form-control" placeholder="name">
+        <label th:for="name" class="form-label">Name</label>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="form-text text-danger"></p>
+    </div>
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:field="*{surname}" type="text" class="form-control" placeholder="surname">
+        <label th:for="surname" class="form-label">Surname</label>
+        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="form-text text-danger"></p>
+    </div>
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:field="*{email}" type="email" class="form-control" placeholder="name@example.com">
+        <label th:for="email" class="form-label">Email</label>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="form-text text-danger"></p>
+    </div>
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:field="*{birthday}" type="date" class="form-control" placeholder="birthday">
+        <label th:for="birthday" class="form-label">Birthday</label>
+        <p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="form-text text-danger"></p>
+    </div>
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:field="*{password}" type="text" class="form-control" placeholder="password">
+        <label th:for="password" class="form-label">Password</label>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="form-text text-danger"></p>
+    </div>
+
+    <div class="form-floating mb-2 border border-success rounded">
+        <input th:name="passwordRepeat" th:id="passwordRepeat" type="text" class="form-control"
+               placeholder="password repeat">
+        <label th:for="passwordRepeat" class="form-label">Repeat password</label>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create</button>
+</form>
+
+</body>
+</html>

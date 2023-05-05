@@ -1,0 +1,84 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{scriptsLinks.html}">
+    <title>User</title>
+</head>
+<body>
+<div th:insert="~{header.html}"></div>
+
+<div class="row mx-1">
+    <div class="col-4">
+        <div class="card mb-4 border border-success">
+            <div class="card-body text-center">
+                <img th:src="@{/images/user.png}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                <h5 class="my-3" th:text="${session.user.getName()} + ' ' + ${session.user.getSurname}"></h5>
+                <p class="text-muted mb-1" th:text="${session.user.getUserType()}"></p>
+                <div th:if="${session.user.getUserType().name() == 'ADMIN'}">
+                    <a class="card-link mb-1" th:href="@{/admin}" th:text="'Admin tools'"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <div class="card mb-4 border border-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0"
+                           th:text="${session.user.getName()} + ' ' + ${session.user.getSurname}"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0" th:text="${session.user.getEmail()}"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Birthday</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0" th:text="${session.user.getBirthday()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mx-1">
+    <div th:each="order : ${orders}">
+        <div class="card mb-1 border border-success">
+            <div class="card-body">
+                <h5 class="card-header" th:text="'Order ' + ${order.getId()} + ' / Date : ' + ${order.getDate()}"></h5>
+                <ul class="list-group list-group-flush">
+                    <li th:each="product : ${order.getProducts.keySet()}" class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                <img style="height: 10vh;"
+                                     th:src="@{/db/images/{imageId}(imageId=${product.getImageId()})}" alt="...">
+                            </div>
+                            <div class="col-10">
+                                <label th:text="'Product : ' + ${product.getName()}"></label><br>
+                                <label th:text="'Description : ' + ${product.getDescription()}"></label><br>
+                                <label th:text="'Price : ' + ${product.getPrice()}"></label><br>
+                                <label th:text="'Amoung : ' + ${order.getProducts().get(product)}"></label><br>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
