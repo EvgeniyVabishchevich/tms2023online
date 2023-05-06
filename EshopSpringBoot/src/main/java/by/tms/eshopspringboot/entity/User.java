@@ -33,7 +33,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_type", columnDefinition = "privilege")
+    @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
     private UserType userType;
