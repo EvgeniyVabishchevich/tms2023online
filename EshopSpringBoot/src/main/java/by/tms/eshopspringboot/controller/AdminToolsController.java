@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +24,6 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.DESCRIPTI
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.IMAGE;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.NAME;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRICE;
-import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @Controller
@@ -58,9 +56,9 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-product")
-    public void execute(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
-                        @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
-                        @RequestParam(PRICE) String price) {
+    public void createNewProduct(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
+                                 @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
+                                 @RequestParam(PRICE) String price) {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
 
