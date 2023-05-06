@@ -1,8 +1,15 @@
 package by.tms.eshopspringboot.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.Map;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Order {
     private LocalDate date;
     private int id;
@@ -10,33 +17,6 @@ public class Order {
 
     public Order(LocalDate date, Map<Product, Integer> products) {
         this.date = date;
-        this.products = products;
-    }
-
-    public Order() {
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Map<Product, Integer> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Map<Product, Integer> products) {
         this.products = products;
     }
 }

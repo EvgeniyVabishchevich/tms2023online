@@ -32,14 +32,6 @@ public class Product {
     @Column(name = "category_id")
     private int categoryId;
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public Product(String name, String description, BigDecimal price, int imageId, int categoryId) {
         this.name = name;
         this.description = description;

@@ -37,7 +37,7 @@ public class SearchController {
     @GetMapping
     @ResponseBody
     public ModelAndView search(@RequestParam(name = SEARCH_REQUEST, defaultValue = "")
-                                     String searchRequest,
+                               String searchRequest,
                                @RequestParam(name = MIN_PRICE, defaultValue = DEFAULT_MIN_VALUE) String minPrice,
                                @RequestParam(name = MAX_PRICE, defaultValue = DEFAULT_MAX_VALUE) String maxPrice,
                                @RequestParam(name = CATEGORY, defaultValue = ALL_CATEGORIES) String category) {
@@ -46,14 +46,8 @@ public class SearchController {
         List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
 
         searchResult = searchResult.stream()
-                .filter(product -> {
-                    boolean notTooSmallPrice = product.getPrice().compareTo(new BigDecimal(minPrice)) >= 0;
-                    boolean notTooBigPrice = product.getPrice().compareTo(new BigDecimal(maxPrice)) <= 0;
-                    boolean isCategoryOk = category.equals(ALL_CATEGORIES)
-                            || categoryService.getCategoryNameById(product.getCategoryId()).equals(category);
-
-                    return notTooSmallPrice && notTooBigPrice && isCategoryOk;
-                }).toList();
+                .filter(product -> productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice),
+                        category)).toList();
 
         modelAndView.addObject(CATEGORIES, categoryService.getCategories());
         modelAndView.addObject(PRODUCTS, searchResult);
@@ -65,5 +59,14 @@ public class SearchController {
 
         modelAndView.setViewName(SEARCH);
         return modelAndView;
+    }
+
+    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String category) {
+        boolean notTooSmallPrice = product.getPrice().compareTo(minPrice) >= 0;
+        boolean notTooBigPrice = product.getPrice().compareTo(maxPrice) <= 0;
+        boolean isSelectedCategory = category.equals(ALL_CATEGORIES)
+                || categoryService.getCategoryNameById(product.getCategoryId()).equals(category);
+
+        return notTooSmallPrice && notTooBigPrice && isSelectedCategory;
     }
 }

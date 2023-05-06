@@ -1,7 +1,14 @@
 package by.tms.eshopspringboot.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Category {
     private int id;
     private String name;
@@ -15,9 +22,6 @@ public class Category {
         this.productList = productList;
     }
 
-    public Category() {
-    }
-
     public Category(String name, int imageId, List<Product> productList) {
         this.name = name;
         this.imageId = imageId;
@@ -27,38 +31,6 @@ public class Category {
     public Category(String name, int imageId) {
         this.name = name;
         this.imageId = imageId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
     }
 }
 
