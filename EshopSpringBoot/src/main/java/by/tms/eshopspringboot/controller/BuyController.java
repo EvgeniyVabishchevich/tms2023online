@@ -29,12 +29,12 @@ public class BuyController {
     @GetMapping
     public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap,
                             @SessionAttribute("user") User user) {
-        int userId = user.getId();
-
         Map<Product, Integer> products = new HashMap<>();
         cartProductsMap.keySet().forEach(id -> products.put(productService.findById(id), cartProductsMap.get(id)));
 
         Order order = new Order(LocalDate.now(), products);
+        int userId = user.getId();
+        
         orderService.addOrder(userId, order);
 
         cartProductsMap.clear();

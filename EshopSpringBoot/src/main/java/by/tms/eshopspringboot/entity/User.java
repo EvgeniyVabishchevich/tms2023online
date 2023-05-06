@@ -1,6 +1,7 @@
 package by.tms.eshopspringboot.entity;
 
 import by.tms.eshopspringboot.entity.enums.UserType;
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
 
@@ -31,8 +33,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_type")
+    @Column(name = "user_type", columnDefinition = "privilege")
     @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private UserType userType;
     @Column(name = "login")
     @NotEmpty(message = "Login field is empty")

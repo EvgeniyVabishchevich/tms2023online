@@ -22,7 +22,6 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PASSWORD_
 @RequiredArgsConstructor
 public class RegisterController {
     private final UserServiceAware userService;
-    private final SignInController signInController;
 
     @GetMapping
     public ModelAndView registerPage() {
@@ -46,7 +45,7 @@ public class RegisterController {
         } else {
             newUser.setUserType(UserType.CLIENT);
             userService.addUser(newUser);
-            return signInController.goToLoginPage();
+            return new ModelAndView("forward:/login");
         }
     }
 }
