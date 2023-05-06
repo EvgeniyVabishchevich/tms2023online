@@ -45,7 +45,6 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-category")
-    @ResponseStatus(value = OK)
     public void createNewCategory(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name) {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
@@ -59,7 +58,6 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-product")
-    @ResponseStatus(value = OK)
     public void execute(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
                         @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
                         @RequestParam(PRICE) String price) {

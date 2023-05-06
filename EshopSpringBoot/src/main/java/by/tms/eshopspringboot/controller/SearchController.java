@@ -28,12 +28,11 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.SEARCH_RE
 @RequiredArgsConstructor
 @RequestMapping("/search")
 public class SearchController {
-    private final ProductServiceAware productService;
-    private final CategoryServiceAware categoryService;
-
     private static final String ALL_CATEGORIES = "All";
     private static final String DEFAULT_MIN_VALUE = "0";
     private static final String DEFAULT_MAX_VALUE = "10000";
+    private final ProductServiceAware productService;
+    private final CategoryServiceAware categoryService;
 
     @GetMapping
     @ResponseBody
