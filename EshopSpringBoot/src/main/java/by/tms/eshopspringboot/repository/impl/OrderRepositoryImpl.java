@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.repository.impl;
 
-import by.tms.eshopspringboot.model.Order;
-import by.tms.eshopspringboot.model.Product;
+import by.tms.eshopspringboot.entity.Order;
+import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

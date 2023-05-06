@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.Category;
+import by.tms.eshopspringboot.entity.Category;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

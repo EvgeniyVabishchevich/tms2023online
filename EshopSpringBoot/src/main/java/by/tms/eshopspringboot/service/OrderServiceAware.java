@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.service;
 
-import by.tms.eshopspringboot.model.Order;
+import by.tms.eshopspringboot.entity.Order;
 
 import java.util.List;
 

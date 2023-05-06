@@ -1,9 +1,8 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.Product;
+import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.utils.Constants;
 import by.tms.eshopspringboot.utils.Constants.Attributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

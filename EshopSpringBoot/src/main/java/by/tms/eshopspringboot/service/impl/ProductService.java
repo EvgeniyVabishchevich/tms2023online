@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.service.impl;
 
-import by.tms.eshopspringboot.model.Product;
+import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.repository.impl.ProductRepositoryImpl;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.User;
+import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.OrderServiceAware;
 import lombok.RequiredArgsConstructor;

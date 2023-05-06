@@ -1,4 +1,4 @@
-package by.tms.eshopspringboot.model;
+package by.tms.eshopspringboot.entity;
 
 import java.time.LocalDate;
 import java.util.Map;

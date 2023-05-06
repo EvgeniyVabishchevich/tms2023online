@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.service.impl;
 
-import by.tms.eshopspringboot.model.Order;
+import by.tms.eshopspringboot.entity.Order;
 import by.tms.eshopspringboot.repository.OrderRepository;
 import by.tms.eshopspringboot.service.OrderServiceAware;
 import lombok.RequiredArgsConstructor;

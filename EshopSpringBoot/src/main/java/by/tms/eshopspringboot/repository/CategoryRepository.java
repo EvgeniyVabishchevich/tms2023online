@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.repository;
 
-import by.tms.eshopspringboot.model.Category;
+import by.tms.eshopspringboot.entity.Category;
 
 import java.util.List;
 

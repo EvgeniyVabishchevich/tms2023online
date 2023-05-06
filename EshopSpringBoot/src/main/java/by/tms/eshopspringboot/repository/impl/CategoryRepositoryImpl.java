@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.repository.impl;
 
-import by.tms.eshopspringboot.model.Category;
+import by.tms.eshopspringboot.entity.Category;
 import by.tms.eshopspringboot.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.User;
-import by.tms.eshopspringboot.model.enums.UserType;
+import by.tms.eshopspringboot.entity.User;
+import by.tms.eshopspringboot.entity.enums.UserType;
 import by.tms.eshopspringboot.service.UserServiceAware;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

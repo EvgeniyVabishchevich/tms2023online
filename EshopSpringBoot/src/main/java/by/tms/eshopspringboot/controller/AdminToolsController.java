@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.Product;
+import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;

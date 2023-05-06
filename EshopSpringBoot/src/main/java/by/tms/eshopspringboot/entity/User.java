@@ -1,6 +1,6 @@
-package by.tms.eshopspringboot.model;
+package by.tms.eshopspringboot.entity;
 
-import by.tms.eshopspringboot.model.enums.UserType;
+import by.tms.eshopspringboot.entity.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
