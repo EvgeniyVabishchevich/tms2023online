@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface CategoryServiceAware {
 
-    void addCategory(String name, int imageId);
+    void saveCategory(Category category);
 
     int getCategoryId(String name);
 
     List<Category> getCategories();
 
-    Category getCategoryByName(String name);
+    Category findCategoryByName(String name);
 
     String getCategoryNameById(int id);
 }

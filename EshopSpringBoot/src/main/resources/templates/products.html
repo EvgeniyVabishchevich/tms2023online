@@ -2,7 +2,7 @@
 <head th:insert="~{scriptsLinks.html}">
     <title th:text="${category.getName()} + 'products'"></title>
 </head>
-<body class="text-center" th:with="products=${category.getProductList()}">
+<body class="text-center" th:with="products=${category.getProducts()}">
 <div th:insert="~{header.html}"></div>
 
 <h1 class="display-5 fw-bold text-body-emphasis" th:text="${category.getName()} + ' products'"></h1>

@@ -22,7 +22,7 @@ public class ProductsController {
     public ModelAndView getCategoryProducts(@PathVariable String categoryName) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Category category = categoryService.getCategoryByName(categoryName);
+        Category category = categoryService.findCategoryByName(categoryName);
 
         if (category == null) {
             modelAndView.addObject("errorMsg", "No such category");
