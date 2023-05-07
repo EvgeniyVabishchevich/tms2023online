@@ -1,5 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
+import by.tms.eshopspringboot.entity.Image;
 import by.tms.eshopspringboot.service.ImageServiceAware;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,12 @@ public class ImageController {
 
     @GetMapping("/{imageId}")
     public void getImage(@PathVariable int imageId, HttpServletResponse response) {
-        byte[] image = imageService.getImageById(imageId);
+        Image image = imageService.findById(imageId);
         response.setContentType(imageService.getImageContentTypeById(imageId));
-        response.setContentLength(image.length);
+        response.setContentLength(image.getImage().length);
 
         try {
-            response.getOutputStream().write(image);
+            response.getOutputStream().write(image.getImage());
         } catch (IOException e) {
             log.error("Error, while trying to write stream in response", e);
         }

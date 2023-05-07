@@ -1,6 +1,7 @@
 package by.tms.eshopspringboot.controller;
 
 import by.tms.eshopspringboot.entity.Category;
+import by.tms.eshopspringboot.entity.Image;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
@@ -50,7 +51,9 @@ public class AdminToolsController {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
 
-            int imageId = imageService.addImage(image.getContentType(), imageBytes);
+            Image newImage = new Image(image.getContentType(), imageBytes);
+
+            int imageId = imageService.saveImage(newImage);
 
             Category category = new Category(name, imageId);
 
@@ -68,7 +71,9 @@ public class AdminToolsController {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
 
-            int imageId = imageService.addImage(image.getContentType(), imageBytes);
+            Image newImage = new Image(image.getContentType(), imageBytes);
+
+            int imageId = imageService.saveImage(newImage);
 
             Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.getCategoryId(category));
 
