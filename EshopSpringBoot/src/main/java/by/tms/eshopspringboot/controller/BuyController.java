@@ -32,10 +32,9 @@ public class BuyController {
         Map<Product, Integer> products = new HashMap<>();
         cartProductsMap.keySet().forEach(id -> products.put(productService.findById(id), cartProductsMap.get(id)));
 
-        Order order = new Order(LocalDate.now(), products);
-        int userId = user.getId();
-        
-        orderService.addOrder(userId, order);
+        Order order = new Order(LocalDate.now(), products, user.getId());
+
+        orderService.addOrder(order);
 
         cartProductsMap.clear();
 
