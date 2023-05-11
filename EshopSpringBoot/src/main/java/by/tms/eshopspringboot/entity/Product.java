@@ -1,4 +1,4 @@
-package by.tms.eshopspringboot.model;
+package by.tms.eshopspringboot.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,14 +31,6 @@ public class Product {
     private int imageId;
     @Column(name = "category_id")
     private int categoryId;
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public Product(String name, String description, BigDecimal price, int imageId, int categoryId) {
         this.name = name;

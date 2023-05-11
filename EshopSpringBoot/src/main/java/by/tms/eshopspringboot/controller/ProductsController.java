@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.Category;
+import by.tms.eshopspringboot.entity.Category;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class ProductsController {
     public ModelAndView getCategoryProducts(@PathVariable String categoryName) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Category category = categoryService.getCategoryByName(categoryName);
+        Category category = categoryService.findCategoryByName(categoryName);
 
         if (category == null) {
             modelAndView.addObject("errorMsg", "No such category");

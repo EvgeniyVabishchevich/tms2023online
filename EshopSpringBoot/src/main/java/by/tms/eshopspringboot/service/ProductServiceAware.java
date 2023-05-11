@@ -1,8 +1,7 @@
 package by.tms.eshopspringboot.service;
 
-import by.tms.eshopspringboot.model.Product;
+import by.tms.eshopspringboot.entity.Product;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

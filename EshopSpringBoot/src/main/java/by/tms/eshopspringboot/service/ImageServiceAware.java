@@ -1,9 +1,11 @@
 package by.tms.eshopspringboot.service;
 
-public interface ImageServiceAware {
-    int addImage(String imageContentType, byte[] imageBytes);
+import by.tms.eshopspringboot.entity.Image;
 
-    byte[] getImageById(int id);
+public interface ImageServiceAware {
+    int saveImage(Image image);
+
+    Image findById(int id);
 
     String getImageContentTypeById(int id);
 }

@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.controller;
 
+import by.tms.eshopspringboot.entity.Image;
 import by.tms.eshopspringboot.service.ImageServiceAware;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,11 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.IOException;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @Controller
@@ -24,14 +21,13 @@ public class ImageController {
     private final ImageServiceAware imageService;
 
     @GetMapping("/{imageId}")
-    @ResponseStatus(value = OK)
     public void getImage(@PathVariable int imageId, HttpServletResponse response) {
-        byte[] image = imageService.getImageById(imageId);
+        Image image = imageService.findById(imageId);
         response.setContentType(imageService.getImageContentTypeById(imageId));
-        response.setContentLength(image.length);
+        response.setContentLength(image.getImage().length);
 
         try {
-            response.getOutputStream().write(image);
+            response.getOutputStream().write(image.getImage());
         } catch (IOException e) {
             log.error("Error, while trying to write stream in response", e);
         }

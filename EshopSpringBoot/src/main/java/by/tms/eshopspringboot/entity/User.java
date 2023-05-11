@@ -1,6 +1,7 @@
-package by.tms.eshopspringboot.model;
+package by.tms.eshopspringboot.entity;
 
-import by.tms.eshopspringboot.model.enums.UserType;
+import by.tms.eshopspringboot.entity.enums.UserType;
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
 
@@ -33,6 +35,7 @@ public class User {
     private int id;
     @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private UserType userType;
     @Column(name = "login")
     @NotEmpty(message = "Login field is empty")

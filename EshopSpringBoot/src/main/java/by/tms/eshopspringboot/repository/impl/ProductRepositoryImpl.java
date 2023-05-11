@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.repository.impl;
 
-import by.tms.eshopspringboot.model.Product;
+import by.tms.eshopspringboot.entity.Product;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

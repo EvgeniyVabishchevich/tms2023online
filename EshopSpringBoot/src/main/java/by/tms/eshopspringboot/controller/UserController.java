@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.User;
+import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.OrderServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class UserController {
     private final CategoryServiceAware categoryService;
 
     @GetMapping
-    public ModelAndView execute(@ModelAttribute("user") User user) {
+    public ModelAndView getUserPage(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView(USER);
         modelAndView.addObject("orders", orderService.getOrdersByUserId(user.getId()));
         modelAndView.addObject("categories", categoryService.getCategories());

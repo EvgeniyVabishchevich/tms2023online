@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.User;
+import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.UserServiceAware;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static by.tms.eshopspringboot.utils.Constants.MappingPath.CATEGORIES;
+import static by.tms.eshopspringboot.utils.Constants.MappingPath.CATEGORIES_PATH;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
 
 @Controller
@@ -52,7 +52,7 @@ public class SignInController {
             modelAndView.addObject("user", userService.findByLogin(newUser.getLogin()));
 
             modelAndView.addObject("categories", categoryService.getCategories());
-            modelAndView.setViewName(CATEGORIES);
+            modelAndView.setViewName(CATEGORIES_PATH);
         } else {
             modelAndView.setViewName(LOGIN);
         }

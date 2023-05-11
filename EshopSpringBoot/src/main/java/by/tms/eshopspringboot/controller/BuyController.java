@@ -1,8 +1,8 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.model.Order;
-import by.tms.eshopspringboot.model.Product;
-import by.tms.eshopspringboot.model.User;
+import by.tms.eshopspringboot.entity.Order;
+import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.service.OrderServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +29,12 @@ public class BuyController {
     @GetMapping
     public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap,
                             @SessionAttribute("user") User user) {
-        int userId = user.getId();
-
         Map<Product, Integer> products = new HashMap<>();
         cartProductsMap.keySet().forEach(id -> products.put(productService.findById(id), cartProductsMap.get(id)));
 
-        Order order = new Order(LocalDate.now(), products);
-        orderService.addOrder(userId, order);
+        Order order = new Order(LocalDate.now(), products, user.getId());
+
+        orderService.addOrder(order);
 
         cartProductsMap.clear();
 

@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.service.impl;
 
-import by.tms.eshopspringboot.model.User;
+import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.repository.impl.UserRepositoryImpl;
 import by.tms.eshopspringboot.service.UserServiceAware;
 import lombok.RequiredArgsConstructor;
