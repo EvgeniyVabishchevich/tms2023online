@@ -8,11 +8,9 @@ public interface CategoryServiceAware {
 
     void saveCategory(Category category);
 
-    int getCategoryId(String name);
+    Category findById(int id) throws Exception;
 
     List<Category> getCategories();
 
-    Category findCategoryByName(String name);
-
-    String getCategoryNameById(int id);
+    Category findCategoryByName(String name) throws Exception;
 }

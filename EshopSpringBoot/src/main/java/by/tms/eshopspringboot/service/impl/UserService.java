@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.service.impl;
 
 import by.tms.eshopspringboot.entity.User;
-import by.tms.eshopspringboot.repository.impl.UserRepositoryImpl;
+import by.tms.eshopspringboot.repository.UserRepository;
 import by.tms.eshopspringboot.service.UserServiceAware;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,20 +9,21 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserServiceAware {
-    private final UserRepositoryImpl userRepositoryImpl;
+    private final UserRepository userRepository;
 
     @Override
     public void addUser(User user) {
-        userRepositoryImpl.save(user);
+        userRepository.save(user);
     }
 
     @Override
-    public User findByLogin(String login) {
-        return userRepositoryImpl.findByLogin(login);
+    public User findByLogin(String login) throws Exception {
+        return userRepository.findByLogin(login).orElseThrow(
+                () -> new Exception(String.format("Cannot find user by login = %s", login)));
     }
 
     @Override
     public boolean existsByLoginAndPassword(String login, String password) {
-        return userRepositoryImpl.existsByLoginAndPassword(login, password);
+        return userRepository.existsByLoginAndPassword(login, password);
     }
 }

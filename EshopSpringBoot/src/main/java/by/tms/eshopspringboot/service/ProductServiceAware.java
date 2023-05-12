@@ -9,7 +9,7 @@ public interface ProductServiceAware {
 
     void saveProduct(Product product);
 
-    Product findById(int id);
+    Product findById(int id) throws Exception;
 
     Map<Product, Integer> getProductsByIds(Map<Integer, Integer> idAmountMap);
 

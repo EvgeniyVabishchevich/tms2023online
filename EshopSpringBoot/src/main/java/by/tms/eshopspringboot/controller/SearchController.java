@@ -46,8 +46,14 @@ public class SearchController {
         List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
 
         searchResult = searchResult.stream()
-                .filter(product -> productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice),
-                        category)).toList();
+                .filter(product -> {
+                    try {
+                        return productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice),
+                                category);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }).toList(); //TODO fix later maybe?
 
         modelAndView.addObject(CATEGORIES, categoryService.getCategories());
         modelAndView.addObject(PRODUCTS, searchResult);
@@ -61,11 +67,11 @@ public class SearchController {
         return modelAndView;
     }
 
-    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String category) {
+    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String category) throws Exception {
         boolean notTooSmallPrice = product.getPrice().compareTo(minPrice) >= 0;
         boolean notTooBigPrice = product.getPrice().compareTo(maxPrice) <= 0;
         boolean isSelectedCategory = category.equals(ALL_CATEGORIES)
-                || categoryService.getCategoryNameById(product.getCategoryId()).equals(category);
+                || categoryService.findById(product.getCategoryId()).getName().equals(category);
 
         return notTooSmallPrice && notTooBigPrice && isSelectedCategory;
     }

@@ -67,7 +67,7 @@ public class AdminToolsController {
     @ResponseBody
     public void createNewProduct(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
                                  @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
-                                 @RequestParam(PRICE) String price) {
+                                 @RequestParam(PRICE) String price) throws Exception {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
 
@@ -75,7 +75,7 @@ public class AdminToolsController {
 
             int imageId = imageService.saveImage(newImage);
 
-            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.getCategoryId(category));
+            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(name).getId());
 
             productService.saveProduct(product);
         } catch (IOException e) {

@@ -21,9 +21,9 @@ public class ImageController {
     private final ImageServiceAware imageService;
 
     @GetMapping("/{imageId}")
-    public void getImage(@PathVariable int imageId, HttpServletResponse response) {
+    public void getImage(@PathVariable int imageId, HttpServletResponse response) throws Exception {
         Image image = imageService.findById(imageId);
-        response.setContentType(imageService.getImageContentTypeById(imageId));
+        response.setContentType(imageService.findById(imageId).getContentType());
         response.setContentLength(image.getImage().length);
 
         try {

@@ -5,7 +5,5 @@ import by.tms.eshopspringboot.entity.Image;
 public interface ImageServiceAware {
     int saveImage(Image image);
 
-    Image findById(int id);
-
-    String getImageContentTypeById(int id);
+    Image findById(int id) throws Exception;
 }

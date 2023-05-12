@@ -5,7 +5,7 @@ import by.tms.eshopspringboot.entity.User;
 public interface UserServiceAware {
     void addUser(User user);
 
-    User findByLogin(String login);
+    User findByLogin(String login) throws Exception;
 
     boolean existsByLoginAndPassword(String login, String password);
 }
