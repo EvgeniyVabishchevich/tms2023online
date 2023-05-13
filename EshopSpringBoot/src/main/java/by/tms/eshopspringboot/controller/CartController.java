@@ -4,10 +4,12 @@ import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,7 +42,8 @@ public class CartController {
         return modelAndView;
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping
+    @ResponseBody
     public void removeProductFromCart(@SessionAttribute Map<Integer, Integer> cartProductsMap, @RequestParam(PRODUCT_ID) int productId) {
         if (cartProductsMap.get(productId) > 1) {
             cartProductsMap.compute(productId, (key, value) -> value - 1);

@@ -63,9 +63,9 @@
 <script th:inline="javascript">
     function removeProduct(productId) {
         $.ajax({
-            url: '/cart/remove',
+            url: '/cart',
             data: {'productId': productId},
-            type: 'post',
+            type: 'delete',
             success: recalculateDisplayedInfo(productId)
         })
     }
