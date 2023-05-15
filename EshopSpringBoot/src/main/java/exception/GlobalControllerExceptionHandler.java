@@ -27,8 +27,9 @@ public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     private ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {
-        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
+        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
             throw e;
+        }
 
         log.error("Request" + request + " raised" + e);
         ModelAndView modelAndView = new ModelAndView(ERROR);
