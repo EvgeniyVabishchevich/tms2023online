@@ -3,6 +3,7 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.repository.UserRepository;
 import by.tms.eshopspringboot.service.UserServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,9 @@ public class UserService implements UserServiceAware {
     }
 
     @Override
-    public User findByLogin(String login) throws Exception {
+    public User findByLogin(String login) throws NotFoundException {
         return userRepository.findByLogin(login).orElseThrow(
-                () -> new Exception(String.format("Cannot find user by login = %s", login)));
+                () -> new NotFoundException(String.format("Cannot find user by login = %s", login)));
     }
 
     @Override

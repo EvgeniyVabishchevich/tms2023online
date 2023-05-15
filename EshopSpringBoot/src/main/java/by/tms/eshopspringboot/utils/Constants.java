@@ -12,6 +12,7 @@ public final class Constants {
         public static final String CART = "cart";
         public static final String CATEGORIES_PATH = "categories";
         public static final String ERROR404 = "error404";
+        public static final String ERROR = "error";
         public static final String LOGIN = "login";
         public static final String REGISTER = "register";
         public static final String PRODUCTS = "products";
@@ -29,6 +30,7 @@ public final class Constants {
         public static final String SEARCH_REQUEST = "searchRequest";
         public static final String MIN_PRICE = "minPrice";
         public static final String MAX_PRICE = "maxPrice";
+        public static final String ERROR_MESSAGE = "errorMsg";
     }
 
     @UtilityClass

@@ -3,6 +3,7 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.UserServiceAware;
+import exception.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.ThreadContext;
@@ -38,7 +39,7 @@ public class SignInController {
     }
 
     @PostMapping
-    public ModelAndView logIn(@Valid @ModelAttribute("unknownUser") User newUser, BindingResult bindingResult) {
+    public ModelAndView logIn(@Valid @ModelAttribute("unknownUser") User newUser, BindingResult bindingResult) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasFieldErrors("login") || bindingResult.hasFieldErrors("password")) {

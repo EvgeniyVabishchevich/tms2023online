@@ -3,6 +3,7 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.Category;
 import by.tms.eshopspringboot.repository.CategoryRepository;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,9 @@ public class CategoryService implements CategoryServiceAware {
     }
 
     @Override
-    public Category findById(int id) throws Exception {
+    public Category findById(int id) throws NotFoundException {
         return categoryRepository.findById(id).orElseThrow(
-                () -> new Exception(String.format("Cannot find category by id = %d", id)));
+                () -> new NotFoundException(String.format("Cannot find category by id = %d", id)));
     }
 
     @Override
@@ -30,8 +31,8 @@ public class CategoryService implements CategoryServiceAware {
     }
 
     @Override
-    public Category findCategoryByName(String name) throws Exception {
+    public Category findCategoryByName(String name) throws NotFoundException {
         return categoryRepository.findCategoryByName(name).orElseThrow(
-                () -> new Exception(String.format("Cannot find category by name = %s", name)));
+                () -> new NotFoundException(String.format("Cannot find category by name = %s", name)));
     }
 }

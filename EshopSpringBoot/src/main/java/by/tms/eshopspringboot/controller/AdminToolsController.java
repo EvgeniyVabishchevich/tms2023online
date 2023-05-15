@@ -6,6 +6,7 @@ import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class AdminToolsController {
     @ResponseBody
     public void createNewProduct(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
                                  @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
-                                 @RequestParam(PRICE) String price) throws Exception {
+                                 @RequestParam(PRICE) String price) throws NotFoundException {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
 
@@ -75,7 +76,7 @@ public class AdminToolsController {
 
             int imageId = imageService.saveImage(newImage);
 
-            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(name).getId());
+            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category).getId());
 
             productService.saveProduct(product);
         } catch (IOException e) {

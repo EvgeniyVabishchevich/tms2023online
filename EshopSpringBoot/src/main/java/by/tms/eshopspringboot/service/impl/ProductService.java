@@ -3,12 +3,15 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.repository.ProductRepository;
 import by.tms.eshopspringboot.service.ProductServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static by.tms.eshopspringboot.utils.ThrowingConsumer.throwingConsumerWrapper;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +24,9 @@ public class ProductService implements ProductServiceAware {
     }
 
     @Override
-    public Product findById(int id) throws Exception {
+    public Product findById(int id) throws NotFoundException {
         return productRepository.findById(id).orElseThrow(
-                () -> new Exception(String.format("Cannot find product by id = %d", id)));
+                () -> new NotFoundException(String.format("Cannot find product by id = %d", id)));
     }
 
     @Override
@@ -35,13 +38,7 @@ public class ProductService implements ProductServiceAware {
     public Map<Product, Integer> getProductsByIds(Map<Integer, Integer> idAmountMap) {
         Map<Product, Integer> productsMap = new HashMap<>();
 
-        idAmountMap.keySet().forEach(id -> {
-            try {
-                productsMap.put(findById(id), idAmountMap.get(id));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });//TODO fix maybe?
+        idAmountMap.keySet().forEach(throwingConsumerWrapper(id -> productsMap.put(findById(id), idAmountMap.get(id))));
 
         return productsMap;
     }

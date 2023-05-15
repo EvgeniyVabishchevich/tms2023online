@@ -3,6 +3,7 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.Image;
 import by.tms.eshopspringboot.repository.ImageRepository;
 import by.tms.eshopspringboot.service.ImageServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,8 @@ public class ImageService implements ImageServiceAware {
     }
 
     @Override
-    public Image findById(int id) throws Exception {
+    public Image findById(int id) throws NotFoundException {
         return imageRepository.findById(id).orElseThrow(
-                () -> new Exception(String.format("Cannot find image by id = %d", id)));
+                () -> new NotFoundException(String.format("Cannot find image by id = %d", id)));
     }
 }

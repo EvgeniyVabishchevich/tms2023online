@@ -4,7 +4,9 @@ import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import by.tms.eshopspringboot.utils.Constants.Attributes;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.SEARCH_RE
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/search")
+@Slf4j
 public class SearchController {
     private static final String ALL_CATEGORIES = "All";
     private static final String DEFAULT_MIN_VALUE = "0";
@@ -46,14 +49,7 @@ public class SearchController {
         List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
 
         searchResult = searchResult.stream()
-                .filter(product -> {
-                    try {
-                        return productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice),
-                                category);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }).toList(); //TODO fix later maybe?
+                .filter(product -> productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice), category)).toList();
 
         modelAndView.addObject(CATEGORIES, categoryService.getCategories());
         modelAndView.addObject(PRODUCTS, searchResult);
@@ -67,11 +63,17 @@ public class SearchController {
         return modelAndView;
     }
 
-    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String category) throws Exception {
+    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String categoryName) {
         boolean notTooSmallPrice = product.getPrice().compareTo(minPrice) >= 0;
         boolean notTooBigPrice = product.getPrice().compareTo(maxPrice) <= 0;
-        boolean isSelectedCategory = category.equals(ALL_CATEGORIES)
-                || categoryService.findById(product.getCategoryId()).getName().equals(category);
+        boolean isSelectedCategory;
+        try {
+            isSelectedCategory = categoryName.equals(ALL_CATEGORIES)
+                    || categoryService.findById(product.getCategoryId()).getName().equals(categoryName);
+        } catch (NotFoundException e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
 
         return notTooSmallPrice && notTooBigPrice && isSelectedCategory;
     }

@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.BUY;
+import static by.tms.eshopspringboot.utils.ThrowingConsumer.throwingConsumerWrapper;
 
 @Controller
 @RequestMapping("/buy")
@@ -30,7 +31,8 @@ public class BuyController {
     public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap,
                             @SessionAttribute("user") User user) {
         Map<Product, Integer> products = new HashMap<>();
-        cartProductsMap.keySet().forEach(id -> products.put(productService.findById(id), cartProductsMap.get(id)));
+
+        cartProductsMap.keySet().forEach(throwingConsumerWrapper(id -> products.put(productService.findById(id), cartProductsMap.get(id))));
 
         Order order = new Order(LocalDate.now(), products, user.getId());
 
