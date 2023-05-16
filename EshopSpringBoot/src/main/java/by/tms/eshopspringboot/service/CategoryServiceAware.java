@@ -1,6 +1,7 @@
 package by.tms.eshopspringboot.service;
 
 import by.tms.eshopspringboot.entity.Category;
+import exception.NotFoundException;
 
 import java.util.List;
 
@@ -8,11 +9,9 @@ public interface CategoryServiceAware {
 
     void saveCategory(Category category);
 
-    int getCategoryId(String name);
+    Category findById(int id) throws NotFoundException;
 
     List<Category> getCategories();
 
-    Category findCategoryByName(String name);
-
-    String getCategoryNameById(int id);
+    Category findCategoryByName(String name) throws NotFoundException;
 }

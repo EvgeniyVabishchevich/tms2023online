@@ -1,8 +1,9 @@
 package by.tms.eshopspringboot.service.impl;
 
 import by.tms.eshopspringboot.entity.Category;
-import by.tms.eshopspringboot.repository.impl.CategoryRepositoryImpl;
+import by.tms.eshopspringboot.repository.CategoryRepository;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,30 +12,27 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryService implements CategoryServiceAware {
-    private final CategoryRepositoryImpl categoryRepositoryImpl;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public void saveCategory(Category category) {
-        categoryRepositoryImpl.save(category);
+        categoryRepository.save(category);
     }
 
     @Override
-    public int getCategoryId(String name) {
-        return categoryRepositoryImpl.findCategoryByName(name).getId();
+    public Category findById(int id) throws NotFoundException {
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Cannot find category by id = %d", id)));
     }
 
     @Override
     public List<Category> getCategories() {
-        return categoryRepositoryImpl.findAll();
+        return categoryRepository.findAll();
     }
 
     @Override
-    public Category findCategoryByName(String name) {
-        return categoryRepositoryImpl.findCategoryByName(name);
-    }
-
-    @Override
-    public String getCategoryNameById(int id) {
-        return categoryRepositoryImpl.findById(id).orElseThrow().getName();
+    public Category findCategoryByName(String name) throws NotFoundException {
+        return categoryRepository.findCategoryByName(name).orElseThrow(
+                () -> new NotFoundException(String.format("Cannot find category by name = %s", name)));
     }
 }

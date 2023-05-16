@@ -1,29 +1,26 @@
 package by.tms.eshopspringboot.service.impl;
 
 import by.tms.eshopspringboot.entity.Image;
-import by.tms.eshopspringboot.repository.impl.ImageRepositoryImpl;
+import by.tms.eshopspringboot.repository.ImageRepository;
 import by.tms.eshopspringboot.service.ImageServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ImageService implements ImageServiceAware {
-    private final ImageRepositoryImpl imageRepositoryImpl;
+    private final ImageRepository imageRepository;
 
     @Override
     public int saveImage(Image image) {
-        Image savedImage = imageRepositoryImpl.save(image);
+        Image savedImage = imageRepository.save(image);
         return savedImage.getId();
     }
 
     @Override
-    public Image findById(int id) {
-        return imageRepositoryImpl.findById(id).orElseThrow();
-    }
-
-    @Override
-    public String getImageContentTypeById(int id) {
-        return imageRepositoryImpl.findById(id).orElseThrow().getContentType();
+    public Image findById(int id) throws NotFoundException {
+        return imageRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Cannot find image by id = %d", id)));
     }
 }

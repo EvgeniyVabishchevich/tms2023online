@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:insert="~{scriptsLinks.html}">
-    <title>Error 404</title>
+    <title>Error</title>
 </head>
 
 <body>
@@ -10,17 +10,14 @@
 
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
-        <h1 class="display-1 fw-bold">404</h1>
+        <h1 class="display-1 fw-bold">500</h1>
         <div th:if="${errorMsg != null}">
             <p class="text-danger" th:text="'Ooops! ' + ${errorMsg}"></p>
         </div>
         <div th:if="${errorMsg == null}">
-            <p class="fs-3"><span class="text-danger">Opps!</span> Page not found.</p>
-            <p class="lead">
-                The page you’re looking for doesn’t exist.
-            </p>
+            <p class="fs-3"><span class="text-danger">Opps!</span> Some error occurred.</p>
         </div>
-        <a href="/categories?page=categories" class="btn btn-primary">Go Home</a>
+        <a href="/categories?page=categories" class="btn btn-primary">Go Home</a>1
     </div>
 </div>
 </body>

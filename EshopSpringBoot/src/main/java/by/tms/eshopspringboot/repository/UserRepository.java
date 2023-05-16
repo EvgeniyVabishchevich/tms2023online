@@ -1,12 +1,14 @@
-package by.tms.eshopspringboot.repository.impl;
+package by.tms.eshopspringboot.repository;
 
 import by.tms.eshopspringboot.entity.User;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface UserRepositoryImpl extends ListCrudRepository<User, Integer> {
-    User findByLogin(String login);
+public interface UserRepository extends ListCrudRepository<User, Integer> {
+    Optional<User> findByLogin(String login);
 
     boolean existsByLoginAndPassword(String login, String password);
 }

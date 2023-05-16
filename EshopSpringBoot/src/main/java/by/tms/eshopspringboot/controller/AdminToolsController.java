@@ -6,14 +6,14 @@ import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +29,7 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.NAME;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRICE;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/admin")
 @RequiredArgsConstructor
 public class AdminToolsController {
@@ -46,7 +46,6 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-category")
-    @ResponseBody
     public void createNewCategory(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name) {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
@@ -64,10 +63,9 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-product")
-    @ResponseBody
     public void createNewProduct(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
                                  @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
-                                 @RequestParam(PRICE) String price) {
+                                 @RequestParam(PRICE) String price) throws NotFoundException {
         try (InputStream fileStream = image.getInputStream()) {
             byte[] imageBytes = fileStream.readAllBytes();
 
@@ -75,7 +73,7 @@ public class AdminToolsController {
 
             int imageId = imageService.saveImage(newImage);
 
-            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.getCategoryId(category));
+            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category).getId());
 
             productService.saveProduct(product);
         } catch (IOException e) {

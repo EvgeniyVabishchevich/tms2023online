@@ -3,11 +3,11 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +19,7 @@ import static by.tms.eshopspringboot.utils.Constants.Attributes.TOTAL_PRICE;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.CART;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRODUCT_ID;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/cart")
 public class CartController {
@@ -40,7 +40,7 @@ public class CartController {
         return modelAndView;
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping
     public void removeProductFromCart(@SessionAttribute Map<Integer, Integer> cartProductsMap, @RequestParam(PRODUCT_ID) int productId) {
         if (cartProductsMap.get(productId) > 1) {
             cartProductsMap.compute(productId, (key, value) -> value - 1);

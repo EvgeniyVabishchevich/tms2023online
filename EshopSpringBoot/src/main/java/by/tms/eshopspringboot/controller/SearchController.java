@@ -4,12 +4,13 @@ import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import by.tms.eshopspringboot.utils.Constants.Attributes;
+import exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
@@ -24,9 +25,10 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MAX_PRICE
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MIN_PRICE;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.SEARCH_REQUEST;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/search")
+@Slf4j
 public class SearchController {
     private static final String ALL_CATEGORIES = "All";
     private static final String DEFAULT_MIN_VALUE = "0";
@@ -35,7 +37,6 @@ public class SearchController {
     private final CategoryServiceAware categoryService;
 
     @GetMapping
-    @ResponseBody
     public ModelAndView search(@RequestParam(name = SEARCH_REQUEST, defaultValue = "")
                                String searchRequest,
                                @RequestParam(name = MIN_PRICE, defaultValue = DEFAULT_MIN_VALUE) String minPrice,
@@ -46,8 +47,7 @@ public class SearchController {
         List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
 
         searchResult = searchResult.stream()
-                .filter(product -> productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice),
-                        category)).toList();
+                .filter(product -> productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice), category)).toList();
 
         modelAndView.addObject(CATEGORIES, categoryService.getCategories());
         modelAndView.addObject(PRODUCTS, searchResult);
@@ -61,11 +61,17 @@ public class SearchController {
         return modelAndView;
     }
 
-    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String category) {
+    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String categoryName) {
         boolean notTooSmallPrice = product.getPrice().compareTo(minPrice) >= 0;
         boolean notTooBigPrice = product.getPrice().compareTo(maxPrice) <= 0;
-        boolean isSelectedCategory = category.equals(ALL_CATEGORIES)
-                || categoryService.getCategoryNameById(product.getCategoryId()).equals(category);
+        boolean isSelectedCategory;
+        try {
+            isSelectedCategory = categoryName.equals(ALL_CATEGORIES)
+                    || categoryService.findById(product.getCategoryId()).getName().equals(categoryName);
+        } catch (NotFoundException e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
 
         return notTooSmallPrice && notTooBigPrice && isSelectedCategory;
     }
