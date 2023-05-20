@@ -3,7 +3,7 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.repository.UserRepository;
 import by.tms.eshopspringboot.service.UserServiceAware;
-import exception.NotFoundException;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.service;
 
 import by.tms.eshopspringboot.entity.Image;
-import exception.NotFoundException;
+import by.tms.eshopspringboot.exception.NotFoundException;
 
 public interface ImageServiceAware {
     int saveImage(Image image);

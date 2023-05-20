@@ -6,7 +6,7 @@ import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import exception.NotFoundException;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

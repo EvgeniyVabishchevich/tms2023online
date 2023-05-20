@@ -3,6 +3,7 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.entity.Order;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.entity.User;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.OrderServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.BUY;
-import static by.tms.eshopspringboot.utils.ThrowingConsumer.throwingConsumerWrapper;
 
 @RestController
 @RequestMapping("/buy")
@@ -29,10 +29,12 @@ public class BuyController {
 
     @GetMapping
     public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap,
-                            @SessionAttribute("user") User user) {
+                            @SessionAttribute("user") User user) throws NotFoundException {
         Map<Product, Integer> products = new HashMap<>();
 
-        cartProductsMap.keySet().forEach(throwingConsumerWrapper(id -> products.put(productService.findById(id), cartProductsMap.get(id))));
+        for (Map.Entry<Integer, Integer> entry : cartProductsMap.entrySet()) {
+            products.put(productService.findById(entry.getKey()), entry.getValue());
+        }
 
         Order order = new Order(LocalDate.now(), products, user.getId());
 

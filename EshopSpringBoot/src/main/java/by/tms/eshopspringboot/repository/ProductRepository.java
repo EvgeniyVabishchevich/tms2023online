@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends ListCrudRepository<Product, Integer> {
     List<Product> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String nameText, String descriptionText);
+    List<Product> findByIdIn(List<Long> ids);
 }

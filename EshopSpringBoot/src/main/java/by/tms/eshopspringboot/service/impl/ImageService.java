@@ -3,7 +3,7 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.Image;
 import by.tms.eshopspringboot.repository.ImageRepository;
 import by.tms.eshopspringboot.service.ImageServiceAware;
-import exception.NotFoundException;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

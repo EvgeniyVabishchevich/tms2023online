@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.service;
 
 import by.tms.eshopspringboot.entity.Category;
-import exception.NotFoundException;
+import by.tms.eshopspringboot.exception.NotFoundException;
 
 import java.util.List;
 

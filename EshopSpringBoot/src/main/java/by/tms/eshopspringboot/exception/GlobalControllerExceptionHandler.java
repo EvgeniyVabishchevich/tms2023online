@@ -1,8 +1,9 @@
-package exception;
+package by.tms.eshopspringboot.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,12 +13,14 @@ import static by.tms.eshopspringboot.utils.Constants.Attributes.ERROR_MESSAGE;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.ERROR;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.ERROR404;
 
-@ControllerAdvice
 @Slf4j
+@ControllerAdvice
 public class GlobalControllerExceptionHandler {
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    private ModelAndView handleError(HttpServletRequest request, NotFoundException exception) {
-        log.error("Request " + request + " raised" + exception);
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    private ModelAndView handleError(NotFoundException exception) {
+        log.error("Unexpected exception", exception);
 
         ModelAndView modelAndView = new ModelAndView(ERROR404);
         modelAndView.addObject(ERROR_MESSAGE, exception.getMessage());
@@ -26,14 +29,14 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    private ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {
-        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
-            throw e;
-        }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @Order(Ordered.LOWEST_PRECEDENCE)
+    private ModelAndView defaultErrorHandler(Exception e) {
+        log.error("Unexpected exception.", e);
 
-        log.error("Request" + request + " raised" + e);
         ModelAndView modelAndView = new ModelAndView(ERROR);
         modelAndView.addObject(ERROR_MESSAGE, e.getMessage());
+
         return modelAndView;
     }
 }
