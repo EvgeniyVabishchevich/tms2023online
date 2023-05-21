@@ -1,11 +1,11 @@
 package by.tms.eshopspringboot.service.impl;
 
 import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.repository.ProductRepository;
-import by.tms.eshopspringboot.utils.SearchParams;
 import by.tms.eshopspringboot.repository.SearchProductSpecification;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.exception.NotFoundException;
+import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

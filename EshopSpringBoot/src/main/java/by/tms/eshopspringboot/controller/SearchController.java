@@ -1,29 +1,23 @@
 package by.tms.eshopspringboot.controller;
 
 import by.tms.eshopspringboot.entity.Product;
-import by.tms.eshopspringboot.utils.SearchParams;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import by.tms.eshopspringboot.utils.Constants.Attributes;
+import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static by.tms.eshopspringboot.utils.Constants.Attributes.CATEGORIES;
 import static by.tms.eshopspringboot.utils.Constants.Attributes.PRODUCTS;
 import static by.tms.eshopspringboot.utils.Constants.Attributes.SELECTED_CATEGORY;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.CATEGORY;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MAX_PRICE;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MIN_PRICE;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.SEARCH_REQUEST;
 
 @RestController
 @RequiredArgsConstructor

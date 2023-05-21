@@ -19,11 +19,11 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    private ModelAndView handleError(NotFoundException exception) {
-        log.error("Unexpected exception", exception);
+    private ModelAndView handleError(NotFoundException e) {
+        log.error("Unexpected exception", e);
 
         ModelAndView modelAndView = new ModelAndView(ERROR404);
-        modelAndView.addObject(ERROR_MESSAGE, exception.getMessage());
+        modelAndView.addObject(ERROR_MESSAGE, e.getMessage());
 
         return modelAndView;
     }

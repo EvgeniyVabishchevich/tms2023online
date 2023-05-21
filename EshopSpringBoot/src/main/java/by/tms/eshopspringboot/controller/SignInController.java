@@ -1,9 +1,9 @@
 package by.tms.eshopspringboot.controller;
 
 import by.tms.eshopspringboot.entity.User;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.UserServiceAware;
-import by.tms.eshopspringboot.exception.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.ThreadContext;

@@ -1,9 +1,9 @@
 package by.tms.eshopspringboot.service.impl;
 
 import by.tms.eshopspringboot.entity.Category;
+import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.repository.CategoryRepository;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
-import by.tms.eshopspringboot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

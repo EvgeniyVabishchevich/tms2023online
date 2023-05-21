@@ -12,5 +12,6 @@ import java.util.List;
 public interface ProductRepository extends ListCrudRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
     @Override
     List<Product> findAll(Specification<Product> spec);
+
     List<Product> findByIdIn(List<Integer> ids);
 }
