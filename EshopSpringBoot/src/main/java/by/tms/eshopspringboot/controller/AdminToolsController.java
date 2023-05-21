@@ -73,7 +73,7 @@ public class AdminToolsController {
 
             int imageId = imageService.saveImage(newImage);
 
-            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category).getId());
+            Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category));
 
             productService.saveProduct(product);
         } catch (IOException e) {

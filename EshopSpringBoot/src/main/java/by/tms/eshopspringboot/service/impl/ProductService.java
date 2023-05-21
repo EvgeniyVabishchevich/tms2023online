@@ -2,6 +2,8 @@ package by.tms.eshopspringboot.service.impl;
 
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.repository.ProductRepository;
+import by.tms.eshopspringboot.utils.SearchParams;
+import by.tms.eshopspringboot.repository.SearchProductSpecification;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,8 @@ public class ProductService implements ProductServiceAware {
     }
 
     @Override
-    public List<Product> getProductsByTextInNameAndDescription(String searchRequest) {
-        return productRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchRequest, searchRequest);
+    public List<Product> searchByParams(SearchParams searchParams) {
+        return productRepository.findAll(new SearchProductSpecification(searchParams));
     }
 
     @Override
