@@ -1,0 +1,8 @@
+<a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
+   th:href="@{'/search?page=' + ${pageNum}
+    + '&searchRequest=' + ${searchParams.getSearchRequest() ?: ''}
+    + '&minPrice=' + ${searchParams.getMinPrice() ?: '0'}
+    + '&maxPrice=' + ${searchParams.getMaxPrice() ?: '0'}
+    + '&category=' + ${searchParams.getCategory() ?: 'All'}}"
+   th:title="${tooltip}" rel="tooltip" th:text="${label}">
+</a>

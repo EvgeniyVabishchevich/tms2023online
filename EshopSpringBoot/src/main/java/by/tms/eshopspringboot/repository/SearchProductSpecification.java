@@ -12,9 +12,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.tms.eshopspringboot.utils.SearchParams.ALL_CATEGORIES;
-
 public class SearchProductSpecification implements Specification<Product> {
+    private final String ALL_CATEGORIES = "All";
     private final SearchParams searchParams;
 
     public SearchProductSpecification(SearchParams searchParams) {
@@ -25,19 +24,21 @@ public class SearchProductSpecification implements Specification<Product> {
     public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
-        predicates.add(criteriaBuilder.or(
-                criteriaBuilder.like(root.get("name"), "%" + searchParams.getSearchRequest() + "%"),
-                criteriaBuilder.like(root.get("description"), "%" + searchParams.getSearchRequest() + "%")));
+        if (searchParams.getSearchRequest() != null) {
+            predicates.add(criteriaBuilder.or(
+                    criteriaBuilder.like(root.get("name"), "%" + searchParams.getSearchRequest() + "%"),
+                    criteriaBuilder.like(root.get("description"), "%" + searchParams.getSearchRequest() + "%")));
+        }
 
-        if (searchParams.getMinPrice().compareTo(BigDecimal.ZERO) > 0) {
+        if (searchParams.getMinPrice() != null && searchParams.getMinPrice().compareTo(BigDecimal.ZERO) > 0) {
             predicates.add(criteriaBuilder.gt(root.get("price"), searchParams.getMinPrice()));
         }
 
-        if (searchParams.getMaxPrice().compareTo(BigDecimal.ZERO) > 0) {
+        if (searchParams.getMaxPrice() != null && searchParams.getMaxPrice().compareTo(BigDecimal.ZERO) > 0) {
             predicates.add(criteriaBuilder.lt(root.get("price"), searchParams.getMaxPrice()));
         }
 
-        if (!searchParams.getCategory().equals(ALL_CATEGORIES)) {
+        if (searchParams.getCategory() != null && !searchParams.getCategory().equals(ALL_CATEGORIES)) {
             predicates.add(criteriaBuilder.equal(root.get("category").get("name"), searchParams.getCategory()));
         }
 

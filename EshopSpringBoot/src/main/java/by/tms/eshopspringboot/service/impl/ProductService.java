@@ -7,6 +7,8 @@ import by.tms.eshopspringboot.repository.SearchProductSpecification;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -32,6 +34,11 @@ public class ProductService implements ProductServiceAware {
     @Override
     public List<Product> searchByParams(SearchParams searchParams) {
         return productRepository.findAll(new SearchProductSpecification(searchParams));
+    }
+
+    @Override
+    public Page<Product> searchByParamsAndPageNumber(SearchParams searchParams, Pageable pageable) {
+        return productRepository.findAll(new SearchProductSpecification(searchParams), pageable);
     }
 
     @Override
