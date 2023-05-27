@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +16,8 @@ import java.math.BigDecimal;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "products")
 public class Product {
     @Id
@@ -29,15 +31,16 @@ public class Product {
     private BigDecimal price;
     @Column(name = "image_id")
     private int imageId;
-    @Column(name = "category_id")
-    private int categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    public Product(String name, String description, BigDecimal price, int imageId, int categoryId) {
+    public Product(String name, String description, BigDecimal price, int imageId, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.imageId = imageId;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 }
 

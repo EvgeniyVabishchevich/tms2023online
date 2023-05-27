@@ -3,76 +3,51 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.utils.Constants.Attributes;
-import exception.NotFoundException;
+import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.util.Optional;
 
 import static by.tms.eshopspringboot.utils.Constants.Attributes.CATEGORIES;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.CURRENT_PAGE;
 import static by.tms.eshopspringboot.utils.Constants.Attributes.PRODUCTS;
-import static by.tms.eshopspringboot.utils.Constants.Attributes.SELECTED_CATEGORY;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.SEARCH_PARAMS;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.TOTAL_PAGES;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.CATEGORY;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MAX_PRICE;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.MIN_PRICE;
-import static by.tms.eshopspringboot.utils.Constants.RequestParameters.SEARCH_REQUEST;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/search")
 @Slf4j
 public class SearchController {
-    private static final String ALL_CATEGORIES = "All";
-    private static final String DEFAULT_MIN_VALUE = "0";
-    private static final String DEFAULT_MAX_VALUE = "10000";
     private final ProductServiceAware productService;
     private final CategoryServiceAware categoryService;
+    private final int PAGE_SIZE = 2;
 
     @GetMapping
-    public ModelAndView search(@RequestParam(name = SEARCH_REQUEST, defaultValue = "")
-                               String searchRequest,
-                               @RequestParam(name = MIN_PRICE, defaultValue = DEFAULT_MIN_VALUE) String minPrice,
-                               @RequestParam(name = MAX_PRICE, defaultValue = DEFAULT_MAX_VALUE) String maxPrice,
-                               @RequestParam(name = CATEGORY, defaultValue = ALL_CATEGORIES) String category) {
+    public ModelAndView searchResult(SearchParams searchParams, @RequestParam Optional<Integer> page) {
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Product> searchResult = productService.getProductsByTextInNameAndDescription(searchRequest);
-
-        searchResult = searchResult.stream()
-                .filter(product -> productFitsRequirements(product, new BigDecimal(minPrice), new BigDecimal(maxPrice), category)).toList();
+        Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_SIZE)).orElseGet(() -> PageRequest.of(0, PAGE_SIZE));
+        Page<Product> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
 
         modelAndView.addObject(CATEGORIES, categoryService.getCategories());
-        modelAndView.addObject(PRODUCTS, searchResult);
+        modelAndView.addObject(PRODUCTS, searchResult.get().toList());
+        modelAndView.addObject(TOTAL_PAGES, searchResult.getTotalPages());
+        modelAndView.addObject(CURRENT_PAGE, searchResult.getNumber());
 
-        modelAndView.addObject(Attributes.SEARCH_REQUEST, searchRequest);
-        modelAndView.addObject(Attributes.MIN_PRICE, minPrice);
-        modelAndView.addObject(Attributes.MAX_PRICE, maxPrice);
-        modelAndView.addObject(SELECTED_CATEGORY, category);
+        modelAndView.addObject(SEARCH_PARAMS, searchParams);
 
         modelAndView.setViewName(SEARCH);
         return modelAndView;
-    }
-
-    private boolean productFitsRequirements(Product product, BigDecimal minPrice, BigDecimal maxPrice, String categoryName) {
-        boolean notTooSmallPrice = product.getPrice().compareTo(minPrice) >= 0;
-        boolean notTooBigPrice = product.getPrice().compareTo(maxPrice) <= 0;
-        boolean isSelectedCategory;
-        try {
-            isSelectedCategory = categoryName.equals(ALL_CATEGORIES)
-                    || categoryService.findById(product.getCategoryId()).getName().equals(categoryName);
-        } catch (NotFoundException e) {
-            log.error(e.getMessage(), e);
-            return false;
-        }
-
-        return notTooSmallPrice && notTooBigPrice && isSelectedCategory;
     }
 }

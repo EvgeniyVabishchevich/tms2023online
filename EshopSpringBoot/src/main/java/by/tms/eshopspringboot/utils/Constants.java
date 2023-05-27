@@ -18,6 +18,7 @@ public final class Constants {
         public static final String PRODUCTS = "products";
         public static final String USER = "user";
         public static final String SEARCH = "search";
+        public static final String SEARCH_RESULT = "searchResult";
     }
 
     @UtilityClass
@@ -31,6 +32,9 @@ public final class Constants {
         public static final String MIN_PRICE = "minPrice";
         public static final String MAX_PRICE = "maxPrice";
         public static final String ERROR_MESSAGE = "errorMsg";
+        public static final String TOTAL_PAGES = "totalPages";
+        public static final String CURRENT_PAGE = "currentPage";
+        public static final String SEARCH_PARAMS = "searchParams";
     }
 
     @UtilityClass
