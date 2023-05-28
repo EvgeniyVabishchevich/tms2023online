@@ -1,14 +1,18 @@
 package by.tms.eshopspringboot.entity;
 
-import by.tms.eshopspringboot.entity.enums.UserType;
+import by.tms.eshopspringboot.entity.enums.Role;
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,6 +26,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
+import java.util.EnumSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,10 +39,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user_type")
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
-    private UserType userType;
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Role> roles;
     @Column(name = "login")
     @NotEmpty(message = "Login field is empty")
     private String login;
@@ -65,8 +74,8 @@ public class User {
     @Size(min = 5, max = 20, message = "Password must contain 5-20 symbols")
     private String password;
 
-    public User(UserType userType, String login, String name, String surname, String email, LocalDate birthday) {
-        this.userType = userType;
+    public User(EnumSet<Role> roles, String login, String name, String surname, String email, LocalDate birthday) {
+        this.roles = roles;
         this.login = login;
         this.name = name;
         this.surname = surname;

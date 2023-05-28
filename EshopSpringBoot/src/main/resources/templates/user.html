@@ -11,10 +11,7 @@
             <div class="card-body text-center">
                 <img th:src="@{/images/user.png}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3" th:text="${session.user.getName()} + ' ' + ${session.user.getSurname}"></h5>
-                <p class="text-muted mb-1" th:text="${session.user.getUserType()}"></p>
-                <div th:if="${session.user.getUserType().name() == 'ADMIN'}">
-                    <a class="card-link mb-1" th:href="@{/admin}" th:text="'Admin tools'"></a>
-                </div>
+                <p class="text-muted mb-1" th:text="${session.user.getRoles()}"></p>
             </div>
         </div>
     </div>

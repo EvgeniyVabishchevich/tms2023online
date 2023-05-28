@@ -7,18 +7,18 @@ public final class Constants {
 
     @UtilityClass
     public static class MappingPath {
-        public static final String ADMIN = "admin/admin";
-        public static final String BUY = "buy";
-        public static final String CART = "cart";
-        public static final String CATEGORIES_PATH = "categories";
-        public static final String ERROR404 = "error404";
-        public static final String ERROR = "error";
-        public static final String LOGIN = "login";
-        public static final String REGISTER = "register";
-        public static final String PRODUCTS = "products";
-        public static final String USER = "user";
-        public static final String SEARCH = "search";
-        public static final String SEARCH_RESULT = "searchResult";
+        public static final String ADMIN = "/admin/admin";
+        public static final String BUY = "/buy";
+        public static final String CART = "/cart";
+        public static final String CATEGORIES_PATH = "/categories";
+        public static final String ERROR404 = "/error404";
+        public static final String ERROR = "/error";
+        public static final String LOGIN = "/login";
+        public static final String REGISTER = "/register";
+        public static final String PRODUCTS = "/products";
+        public static final String USER = "/user";
+        public static final String SEARCH = "/search";
+        public static final String SEARCH_RESULT = "/searchResult";
     }
 
     @UtilityClass
