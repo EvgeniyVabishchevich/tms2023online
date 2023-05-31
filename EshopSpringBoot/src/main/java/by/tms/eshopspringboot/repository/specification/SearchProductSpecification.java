@@ -1,4 +1,4 @@
-package by.tms.eshopspringboot.repository;
+package by.tms.eshopspringboot.repository.specification;
 
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.utils.SearchParams;

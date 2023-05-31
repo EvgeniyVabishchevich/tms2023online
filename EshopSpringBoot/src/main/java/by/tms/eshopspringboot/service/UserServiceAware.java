@@ -1,12 +1,10 @@
 package by.tms.eshopspringboot.service;
 
-import by.tms.eshopspringboot.entity.User;
+import by.tms.eshopspringboot.dto.UserDTO;
 import by.tms.eshopspringboot.exception.NotFoundException;
 
 public interface UserServiceAware {
-    void addUser(User user);
+    void addUser(UserDTO userDTO);
 
-    User findByLogin(String login) throws NotFoundException;
-
-    boolean existsByLoginAndPassword(String login, String password);
+    UserDTO findByLogin(String login) throws NotFoundException;
 }
