@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends ListCrudRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
+public interface ProductRepository extends ListCrudRepository<Product, Long>, JpaSpecificationExecutor<Product> {
     @Override
     List<Product> findAll(Specification<Product> spec);
 

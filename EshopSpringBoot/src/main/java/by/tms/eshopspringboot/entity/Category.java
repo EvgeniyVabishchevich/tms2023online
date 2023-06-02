@@ -24,22 +24,22 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "image_id")
-    private int imageId;
+    private Long imageId;
     @OneToMany
     @JoinColumn(name = "category_id")
     private List<Product> products;
 
-    public Category(String name, int imageId, List<Product> products) {
+    public Category(String name, Long imageId, List<Product> products) {
         this.name = name;
         this.imageId = imageId;
         this.products = products;
     }
 
-    public Category(String name, int imageId) {
+    public Category(String name, Long imageId) {
         this.name = name;
         this.imageId = imageId;
     }

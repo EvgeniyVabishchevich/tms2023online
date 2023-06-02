@@ -48,7 +48,7 @@ public class SignInController {
         ModelAndView modelAndView = new ModelAndView();
 
         ThreadContext.put("conversationId", UUID.randomUUID().toString());
-        modelAndView.addObject("cartProductsMap", new HashMap<Integer, Integer>());
+        modelAndView.addObject("cartProductsMap", new HashMap<Long, Integer>());
         modelAndView.addObject("user", userService.findByLogin(login));
 
         modelAndView.addObject("categories", categoryService.getCategories());

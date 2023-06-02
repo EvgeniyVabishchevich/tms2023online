@@ -30,7 +30,7 @@ public class Order {
     private LocalDate date;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ElementCollection
     @CollectionTable(name = "orders_products")
@@ -38,9 +38,9 @@ public class Order {
     @MapKeyJoinColumn(name = "product_id")
     private Map<Product, Integer> products;
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
-    public Order(LocalDate date, Map<Product, Integer> products, int userId) {
+    public Order(LocalDate date, Map<Product, Integer> products, Long userId) {
         this.date = date;
         this.products = products;
         this.userId = userId;

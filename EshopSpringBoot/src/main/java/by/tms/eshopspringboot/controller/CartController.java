@@ -28,7 +28,7 @@ public class CartController {
     private final ProductServiceAware productService;
 
     @GetMapping
-    public ModelAndView showCart(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap) throws NotFoundException {
+    public ModelAndView showCart(@SessionAttribute("cartProductsMap") Map<Long, Integer> cartProductsMap) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView(CART);
 
         Map<Product, Integer> productsMap = productService.getProductsByIds(cartProductsMap);

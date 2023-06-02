@@ -35,7 +35,8 @@ public class WebSecurityConfig {
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl(LOGIN)
-                        .permitAll());
+                        .permitAll())
+                .csrf().disable();
         return http.build();
     }
 

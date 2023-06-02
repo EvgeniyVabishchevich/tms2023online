@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "content_type")
     private String contentType;
     @Column(name = "image")

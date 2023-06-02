@@ -52,7 +52,7 @@ public class AdminToolsController {
 
             Image newImage = new Image(image.getContentType(), imageBytes);
 
-            int imageId = imageService.saveImage(newImage);
+            Long imageId = imageService.saveImage(newImage);
 
             Category category = new Category(name, imageId);
 
@@ -71,7 +71,7 @@ public class AdminToolsController {
 
             Image newImage = new Image(image.getContentType(), imageBytes);
 
-            int imageId = imageService.saveImage(newImage);
+            Long imageId = imageService.saveImage(newImage);
 
             Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category));
 

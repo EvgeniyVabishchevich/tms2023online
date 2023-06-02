@@ -1,5 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
+import by.tms.eshopspringboot.dto.UserDTO;
 import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.OrderServiceAware;
@@ -22,7 +23,7 @@ public class UserController {
     private final CategoryServiceAware categoryService;
 
     @GetMapping
-    public ModelAndView getUserPage(@ModelAttribute("user") User user) {
+    public ModelAndView getUserPage(@ModelAttribute("user") UserDTO user) {
         ModelAndView modelAndView = new ModelAndView(USER);
         modelAndView.addObject("orders", orderService.getOrdersByUserId(user.getId()));
         modelAndView.addObject("categories", categoryService.getCategories());

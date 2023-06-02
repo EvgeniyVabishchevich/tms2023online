@@ -13,9 +13,9 @@ public interface ProductServiceAware {
 
     void saveProduct(Product product);
 
-    Product findById(int id) throws NotFoundException;
+    Product findById(Long id) throws NotFoundException;
 
-    Map<Product, Integer> getProductsByIds(Map<Integer, Integer> idAmountMap) throws NotFoundException;
+    Map<Product, Integer> getProductsByIds(Map<Long, Integer> idAmountMap) throws NotFoundException;
 
     List<Product> searchByParams(SearchParams searchParams);
 

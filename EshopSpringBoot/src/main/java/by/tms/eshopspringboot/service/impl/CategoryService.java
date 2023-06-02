@@ -20,7 +20,7 @@ public class CategoryService implements CategoryServiceAware {
     }
 
     @Override
-    public Category findById(int id) throws NotFoundException {
+    public Category findById(Long id) throws NotFoundException {
         return categoryRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(String.format("Cannot find category by id = %d", id)));
     }

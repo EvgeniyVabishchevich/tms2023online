@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class UserDTO {
-    private int id;
+    private Long id;
     private Set<Role> roles;
     @NotEmpty(message = "Login field is empty")
     private String login;
