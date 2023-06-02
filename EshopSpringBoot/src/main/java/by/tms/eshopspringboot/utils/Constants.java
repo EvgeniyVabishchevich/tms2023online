@@ -23,6 +23,7 @@ public final class Constants {
 
     @UtilityClass
     public static class Attributes {
+        public static final String PAGE_ATTRIBUTES = "pageAttributes";
         public static final String PRODUCTS_MAP = "productsMap";
         public static final String TOTAL_PRICE = "totalPrice";
         public static final String CATEGORIES = "categories";

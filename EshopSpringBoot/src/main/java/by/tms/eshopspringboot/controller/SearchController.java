@@ -1,5 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
+import by.tms.eshopspringboot.dto.SearchPageDTO;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
@@ -17,11 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
-import static by.tms.eshopspringboot.utils.Constants.Attributes.CATEGORIES;
-import static by.tms.eshopspringboot.utils.Constants.Attributes.CURRENT_PAGE;
-import static by.tms.eshopspringboot.utils.Constants.Attributes.PRODUCTS;
-import static by.tms.eshopspringboot.utils.Constants.Attributes.SEARCH_PARAMS;
-import static by.tms.eshopspringboot.utils.Constants.Attributes.TOTAL_PAGES;
+import static by.tms.eshopspringboot.utils.Constants.Attributes.PAGE_ATTRIBUTES;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
 
 @RestController
@@ -40,12 +37,10 @@ public class SearchController {
         Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_SIZE)).orElseGet(() -> PageRequest.of(0, PAGE_SIZE));
         Page<Product> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
 
-        modelAndView.addObject(CATEGORIES, categoryService.getCategories());
-        modelAndView.addObject(PRODUCTS, searchResult.get().toList());
-        modelAndView.addObject(TOTAL_PAGES, searchResult.getTotalPages());
-        modelAndView.addObject(CURRENT_PAGE, searchResult.getNumber());
+        SearchPageDTO searchPageDTO = new SearchPageDTO(categoryService.getCategories(), searchResult.get().toList(),
+                searchResult.getNumber(), searchResult.getTotalPages(), searchParams);
 
-        modelAndView.addObject(SEARCH_PARAMS, searchParams);
+        modelAndView.addObject(PAGE_ATTRIBUTES, searchPageDTO);
 
         modelAndView.setViewName(SEARCH);
         return modelAndView;
