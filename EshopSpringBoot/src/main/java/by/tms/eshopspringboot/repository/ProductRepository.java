@@ -12,11 +12,4 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends ListCrudRepository<Product, Long>, JpaSpecificationExecutor<Product> {
-    @Override
-    List<Product> findAll(Specification<Product> spec);
-
-    @Override
-    Page<Product> findAll(Specification<Product> spec, Pageable pageable);
-
-    List<Product> findByIdIn(List<Integer> ids);
 }

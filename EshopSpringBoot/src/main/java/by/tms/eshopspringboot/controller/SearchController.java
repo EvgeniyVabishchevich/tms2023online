@@ -31,7 +31,7 @@ import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
 public class SearchController {
     private final ProductServiceAware productService;
     private final CategoryServiceAware categoryService;
-    private final int PAGE_SIZE = 2;
+    private static final int PAGE_SIZE = 2;
 
     @GetMapping
     public ModelAndView searchResult(SearchParams searchParams, @RequestParam Optional<Integer> page) {
