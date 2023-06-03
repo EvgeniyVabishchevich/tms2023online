@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
 
@@ -35,8 +36,7 @@ public class WebSecurityConfig {
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl(LOGIN)
-                        .permitAll())
-                .csrf().disable();
+                        .permitAll());
         return http.build();
     }
 

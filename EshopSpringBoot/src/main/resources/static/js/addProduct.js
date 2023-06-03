@@ -4,6 +4,8 @@ function addProductId(productId) {
         url: '/add-product',
         data: {productId: productId},
         type: 'post',
-        success: alert('product added')
+        success: function () {
+            alert('product added')
+        }
     });
 }

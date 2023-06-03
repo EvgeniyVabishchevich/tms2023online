@@ -1,6 +1,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{scriptsLinks.html}">
+<head>
     <title>Admin tools</title>
+
+    <div th:replace="fragments/headFragments :: bootstrap"></div>
+    <div th:replace="fragments/headFragments :: csrfMeta"></div>
 </head>
 
 <body>
@@ -65,7 +68,10 @@
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}" type="text/javascript"></script>
+
+<script th:src="@{/js/csrfAjaxSend.js}"></script>
+
 <script>
     function hide(formId) {
         const form = document.getElementById(formId);

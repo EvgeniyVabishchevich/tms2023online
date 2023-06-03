@@ -23,7 +23,10 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li>
+                        <input class="dropdown-item" type="submit" th:form="logoutForm" value="Logout">
+                        <form style="display: none" th:action="@{/logout}" th:method="post" th:id="logoutForm"></form>
+                    </li>
                 </ul>
             </div>
         </div>
