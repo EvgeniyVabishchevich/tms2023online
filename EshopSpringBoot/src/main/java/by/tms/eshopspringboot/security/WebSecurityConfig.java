@@ -1,5 +1,6 @@
 package by.tms.eshopspringboot.security;
 
+import by.tms.eshopspringboot.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/admin").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/user").hasRole(Role.USER.name())
                         .anyRequest()
                         .permitAll())
                 .formLogin(form -> form

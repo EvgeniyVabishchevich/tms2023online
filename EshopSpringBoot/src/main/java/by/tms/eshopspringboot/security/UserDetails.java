@@ -1,6 +1,7 @@
 package by.tms.eshopspringboot.security;
 
 import by.tms.eshopspringboot.entity.User;
+import by.tms.eshopspringboot.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +14,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.name())).toList();
+        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList();
     }
 
     @Override
