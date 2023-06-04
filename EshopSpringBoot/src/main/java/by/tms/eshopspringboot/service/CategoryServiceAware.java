@@ -9,7 +9,7 @@ public interface CategoryServiceAware {
 
     void saveCategory(Category category);
 
-    Category findById(int id) throws NotFoundException;
+    Category findById(Long id) throws NotFoundException;
 
     List<Category> getCategories();
 

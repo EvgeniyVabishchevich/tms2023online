@@ -28,7 +28,7 @@ public class CartController {
     private final ProductServiceAware productService;
 
     @GetMapping
-    public ModelAndView showCart(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap) throws NotFoundException {
+    public ModelAndView showCart(@SessionAttribute("cartProductsMap") Map<Long, Integer> cartProductsMap) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView(CART);
 
         Map<Product, Integer> productsMap = productService.getProductsByIds(cartProductsMap);
@@ -42,7 +42,7 @@ public class CartController {
     }
 
     @DeleteMapping
-    public void removeProductFromCart(@SessionAttribute Map<Integer, Integer> cartProductsMap, @RequestParam(PRODUCT_ID) int productId) {
+    public void removeProductFromCart(@SessionAttribute Map<Long, Integer> cartProductsMap, @RequestParam(PRODUCT_ID) Long productId) {
         if (cartProductsMap.get(productId) > 1) {
             cartProductsMap.compute(productId, (key, value) -> value - 1);
         } else {

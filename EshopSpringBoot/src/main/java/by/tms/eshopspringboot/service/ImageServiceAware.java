@@ -4,7 +4,7 @@ import by.tms.eshopspringboot.entity.Image;
 import by.tms.eshopspringboot.exception.NotFoundException;
 
 public interface ImageServiceAware {
-    int saveImage(Image image);
+    Long saveImage(Image image);
 
-    Image findById(int id) throws NotFoundException;
+    Image findById(Long id) throws NotFoundException;
 }

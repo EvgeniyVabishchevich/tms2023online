@@ -1,4 +1,4 @@
-package by.tms.eshopspringboot.repository;
+package by.tms.eshopspringboot.repository.specification;
 
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.utils.SearchParams;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchProductSpecification implements Specification<Product> {
-    private final String ALL_CATEGORIES = "All";
+    private static final String ALL_CATEGORIES = "All";
     private final SearchParams searchParams;
 
     public SearchProductSpecification(SearchParams searchParams) {

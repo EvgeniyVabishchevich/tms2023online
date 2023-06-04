@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
@@ -30,12 +30,12 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
     @Column(name = "image_id")
-    private int imageId;
+    private Long imageId;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Product(String name, String description, BigDecimal price, int imageId, Category category) {
+    public Product(String name, String description, BigDecimal price, Long imageId, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;

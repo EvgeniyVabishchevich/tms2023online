@@ -3,7 +3,7 @@ package by.tms.eshopspringboot.service.impl;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.repository.ProductRepository;
-import by.tms.eshopspringboot.repository.SearchProductSpecification;
+import by.tms.eshopspringboot.repository.specification.SearchProductSpecification;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class ProductService implements ProductServiceAware {
     }
 
     @Override
-    public Product findById(int id) throws NotFoundException {
+    public Product findById(Long id) throws NotFoundException {
         return productRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(String.format("Cannot find product by id = %d", id)));
     }
@@ -42,13 +42,13 @@ public class ProductService implements ProductServiceAware {
     }
 
     @Override
-    public Map<Product, Integer> getProductsByIds(Map<Integer, Integer> idToAmount) throws NotFoundException {
+    public Map<Product, Integer> getProductsByIds(Map<Long, Integer> idToAmount) throws NotFoundException {
         Map<Product, Integer> productsMap = new HashMap<>();
 
        /* List<Product> products = productRepository.findByIdIn(new ArrayList<>(idToAmount.keySet()));
         products.forEach(product -> productsMap.put(product, idToAmount.get(product.getId())));*/
 
-        for (Map.Entry<Integer, Integer> entry : idToAmount.entrySet()) {
+        for (Map.Entry<Long, Integer> entry : idToAmount.entrySet()) {
             productsMap.put(findById(entry.getKey()), entry.getValue());
         }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderServiceAware {
 
-    List<Order> getOrdersByUserId(int userId);
+    List<Order> getOrdersByUserId(Long userId);
 
     void addOrder(Order order);
 }

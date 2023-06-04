@@ -1,27 +1,29 @@
 package by.tms.eshopspringboot.entity;
 
-import by.tms.eshopspringboot.entity.enums.UserType;
+import by.tms.eshopspringboot.enums.Role;
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.EnumSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,44 +31,37 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "user_type")
+    private Long id;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
-    private UserType userType;
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Role> roles;
     @Column(name = "login")
-    @NotEmpty(message = "Login field is empty")
     private String login;
 
     @Column(name = "name")
-    @NotEmpty(message = "Name field is empty")
-    @Pattern(regexp = "[A-Z][a-z]*", message = "Name first letter must be capitalized and contain at least 2 symbols")
     private String name;
 
     @Column(name = "surname")
-    @NotEmpty(message = "Surname field is empty")
-    @Pattern(regexp = "[A-Z][a-z]*", message = "Surname first letter must be capitalized and contain at least 2 symbols")
     private String surname;
 
     @Column(name = "email")
-    @NotEmpty(message = "Email field is empty")
-    @Email(message = "Incorrect email address")
     private String email;
 
     @Column(name = "birthday")
-    @Past(message = "This date must be in past")
     private LocalDate birthday;
 
     @Column(name = "password")
-    @NotEmpty(message = "Password field is empty")
-    @Size(min = 5, max = 20, message = "Password must contain 5-20 symbols")
     private String password;
 
-    public User(UserType userType, String login, String name, String surname, String email, LocalDate birthday) {
-        this.userType = userType;
+    public User(EnumSet<Role> roles, String login, String name, String surname, String email, LocalDate birthday) {
+        this.roles = roles;
         this.login = login;
         this.name = name;
         this.surname = surname;

@@ -14,7 +14,7 @@ import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRODUCT_I
 @RequestMapping("/add-product")
 public class AddProductCartController {
     @PostMapping
-    public void addProduct(@RequestParam(PRODUCT_ID) int productId, @SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap) {
+    public void addProduct(@RequestParam(PRODUCT_ID) Long productId, @SessionAttribute("cartProductsMap") Map<Long, Integer> cartProductsMap) {
         cartProductsMap.merge(productId, 1, Integer::sum);
     }
 }

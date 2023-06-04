@@ -1,5 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
+import by.tms.eshopspringboot.dto.UserDTO;
 import by.tms.eshopspringboot.entity.Order;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.entity.User;
@@ -28,15 +29,15 @@ public class BuyController {
     private final ProductServiceAware productService;
 
     @GetMapping
-    public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Integer, Integer> cartProductsMap,
-                            @SessionAttribute("user") User user) throws NotFoundException {
+    public ModelAndView buy(@SessionAttribute("cartProductsMap") Map<Long, Integer> cartProductsMap,
+                            @SessionAttribute("user") UserDTO userDTO) throws NotFoundException {
         Map<Product, Integer> products = new HashMap<>();
 
-        for (Map.Entry<Integer, Integer> entry : cartProductsMap.entrySet()) {
+        for (Map.Entry<Long, Integer> entry : cartProductsMap.entrySet()) {
             products.put(productService.findById(entry.getKey()), entry.getValue());
         }
 
-        Order order = new Order(LocalDate.now(), products, user.getId());
+        Order order = new Order(LocalDate.now(), products, userDTO.getId());
 
         orderService.addOrder(order);
 

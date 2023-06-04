@@ -22,7 +22,7 @@ public class ImageController {
     private final ImageServiceAware imageService;
 
     @GetMapping("/{imageId}")
-    public void getImage(@PathVariable int imageId, HttpServletResponse response) {
+    public void getImage(@PathVariable Long imageId, HttpServletResponse response) {
         try {
             Image image = imageService.findById(imageId);
             response.setContentType(image.getContentType());

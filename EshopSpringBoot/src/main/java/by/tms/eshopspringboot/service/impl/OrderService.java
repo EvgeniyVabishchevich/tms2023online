@@ -14,7 +14,7 @@ public class OrderService implements OrderServiceAware {
     private final OrderRepository orderRepository;
 
     @Override
-    public List<Order> getOrdersByUserId(int userId) {
+    public List<Order> getOrdersByUserId(Long userId) {
         return orderRepository.findAllByUserId(userId);
     }
 
