@@ -3,7 +3,6 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.dto.UserDTO;
 import by.tms.eshopspringboot.entity.Order;
 import by.tms.eshopspringboot.entity.Product;
-import by.tms.eshopspringboot.entity.User;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.OrderServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;

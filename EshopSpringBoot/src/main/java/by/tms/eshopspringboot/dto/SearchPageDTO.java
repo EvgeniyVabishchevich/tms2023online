@@ -2,7 +2,6 @@ package by.tms.eshopspringboot.dto;
 
 import by.tms.eshopspringboot.entity.Category;
 import by.tms.eshopspringboot.entity.Product;
-import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

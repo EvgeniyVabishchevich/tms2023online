@@ -5,7 +5,7 @@ import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.repository.ProductRepository;
 import by.tms.eshopspringboot.repository.specification.SearchProductSpecification;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.utils.SearchParams;
+import by.tms.eshopspringboot.dto.SearchParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -4,7 +4,7 @@ import by.tms.eshopspringboot.dto.SearchPageDTO;
 import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.utils.SearchParams;
+import by.tms.eshopspringboot.dto.SearchParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
