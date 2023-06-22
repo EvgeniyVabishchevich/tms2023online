@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @NoArgsConstructor
-public class SearchParams {
+public class SearchParams { //todo move class
     private String searchRequest;
     private String category;
     private BigDecimal minPrice;
