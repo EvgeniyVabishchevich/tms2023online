@@ -26,34 +26,19 @@ public class AdminFacade {
     private final ImageServiceAware imageService;
     private final ProductServiceAware productService;
 
-    public void addCategory(MultipartFile image, String name) {
-        try (InputStream fileStream = image.getInputStream()) {
-            byte[] imageBytes = fileStream.readAllBytes();
+    public void addCategory(MultipartFile image, String name) throws IOException {
+            Long imageId = imageService.saveImage(image);
 
-            Image newImage = new Image(image.getContentType(), imageBytes);
-
-            Long imageId = imageService.saveImage(newImage);
             Category category = new Category(name, imageId);
 
             categoryService.saveCategory(category);
-        } catch (IOException e) {
-            log.error("Error, while getting image from request", e);
-        }
     }
 
-    public void addProduct(MultipartFile image, String name, String description, String category, String price) throws NotFoundException {
-        try (InputStream fileStream = image.getInputStream()) {
-            byte[] imageBytes = fileStream.readAllBytes();
-
-            Image newImage = new Image(image.getContentType(), imageBytes);
-
-            Long imageId = imageService.saveImage(newImage);
+    public void addProduct(MultipartFile image, String name, String description, String category, String price) throws NotFoundException, IOException {
+            Long imageId = imageService.saveImage(image);
 
             Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category));
 
             productService.saveProduct(product);
-        } catch (IOException e) {
-            log.error("Error, while getting image from request", e);
-        }
     }
 }

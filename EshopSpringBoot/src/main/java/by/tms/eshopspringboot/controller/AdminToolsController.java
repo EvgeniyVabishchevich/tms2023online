@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.ADMIN;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.CATEGORY;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.DESCRIPTION;
@@ -37,14 +39,14 @@ public class AdminToolsController {
     }
 
     @PostMapping(value = "/new-category")
-    public void createNewCategory(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name) {
+    public void createNewCategory(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name) throws IOException {
         adminFacade.addCategory(image, name);
     }
 
     @PostMapping(value = "/new-product")
     public void createNewProduct(@RequestParam(IMAGE) MultipartFile image, @RequestParam(NAME) String name,
                                  @RequestParam(DESCRIPTION) String description, @RequestParam(CATEGORY) String category,
-                                 @RequestParam(PRICE) String price) throws NotFoundException {
+                                 @RequestParam(PRICE) String price) throws NotFoundException, IOException {
         adminFacade.addProduct(image, name, description, category, price);
     }
 }
