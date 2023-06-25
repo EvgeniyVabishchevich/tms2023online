@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.repository.specification;
 
-import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.dto.SearchParams;
+import by.tms.eshopspringboot.entity.Product;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
