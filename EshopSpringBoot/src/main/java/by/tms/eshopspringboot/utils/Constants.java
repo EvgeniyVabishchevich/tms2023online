@@ -22,6 +22,12 @@ public final class Constants {
     }
 
     @UtilityClass
+    public static class SessionAttributes {
+        public static final String USER = "user";
+        public static final String SHOPPING_CART_MAP = "shoppingCartMap";
+    }
+
+    @UtilityClass
     public static class Attributes {
         public static final String PAGE_ATTRIBUTES = "pageAttributes";
         public static final String PRODUCTS_MAP = "productsMap";

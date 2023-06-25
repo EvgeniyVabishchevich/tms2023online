@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.util.Map;
 
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRODUCT_ID;
+import static by.tms.eshopspringboot.utils.Constants.SessionAttributes.SHOPPING_CART_MAP;
 
 @RestController
 @RequestMapping("/add-product")
 public class AddProductCartController {
     @PostMapping
-    public void addProduct(@RequestParam(PRODUCT_ID) Long productId, @SessionAttribute("cartProductsMap") Map<Long, Integer> cartProductsMap) {
-        cartProductsMap.merge(productId, 1, Integer::sum);
+    public void addProduct(@RequestParam(PRODUCT_ID) Long productId, @SessionAttribute(SHOPPING_CART_MAP) Map<Long, Integer> shoppingCartMap) {
+        shoppingCartMap.merge(productId, 1, Integer::sum);
     }
 }

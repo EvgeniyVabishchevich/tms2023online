@@ -3,6 +3,7 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.UserServiceAware;
+import by.tms.eshopspringboot.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.jboss.logging.MDC;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +20,13 @@ import java.util.HashMap;
 import static by.tms.eshopspringboot.utils.Constants.Attributes.ERROR_MESSAGE;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.CATEGORIES_PATH;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
+import static by.tms.eshopspringboot.utils.Constants.SessionAttributes.SHOPPING_CART_MAP;
+import static by.tms.eshopspringboot.utils.Constants.SessionAttributes.USER;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/login")
-@SessionAttributes({"cartProductsMap", "user"})
+@SessionAttributes({SHOPPING_CART_MAP, USER})
 public class SignInController {
     private final UserServiceAware userService;
     private final CategoryServiceAware categoryService;
@@ -47,8 +50,8 @@ public class SignInController {
         ModelAndView modelAndView = new ModelAndView();
 
         MDC.put("userId", userService.findByLogin(login).getId());
-        modelAndView.addObject("cartProductsMap", new HashMap<Long, Integer>());
-        modelAndView.addObject("user", userService.findByLogin(login));
+        modelAndView.addObject(SHOPPING_CART_MAP, new HashMap<Long, Integer>());
+        modelAndView.addObject(USER, userService.findByLogin(login));
 
         modelAndView.addObject("categories", categoryService.getCategories());
         modelAndView.setViewName(CATEGORIES_PATH);
