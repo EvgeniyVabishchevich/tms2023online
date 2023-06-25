@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class SearchPageDTO {
+public class SearchPageData {
     private final List<Category> categories;
     private final List<Product> products;
     private final int currentPage;
