@@ -28,13 +28,13 @@ import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
 public class SearchController {
     private final ProductServiceAware productService;
     private final CategoryServiceAware categoryService;
-    private static final int PAGE_SIZE = 2;
+    private static final int PAGE_COUNT_RECORDS = 2;
 
     @GetMapping
     public ModelAndView searchResult(SearchParams searchParams, @RequestParam Optional<Integer> page) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_SIZE)).orElseGet(() -> PageRequest.of(0, PAGE_SIZE));
+        Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_COUNT_RECORDS)).orElseGet(() -> PageRequest.of(0, PAGE_COUNT_RECORDS));
         Page<Product> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
 
         SearchPageDTO searchPageDTO = new SearchPageDTO(categoryService.getCategories(), searchResult.get().toList(),
