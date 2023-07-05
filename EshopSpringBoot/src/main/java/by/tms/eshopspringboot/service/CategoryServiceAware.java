@@ -1,17 +1,17 @@
 package by.tms.eshopspringboot.service;
 
-import by.tms.eshopspringboot.entity.Category;
+import by.tms.eshopspringboot.dto.CategoryDTO;
 import by.tms.eshopspringboot.exception.NotFoundException;
 
 import java.util.List;
 
 public interface CategoryServiceAware {
 
-    void saveCategory(Category category);
+    void saveCategory(CategoryDTO categoryDTO);
 
-    Category findById(Long id) throws NotFoundException;
+    CategoryDTO findById(Long id) throws NotFoundException;
 
-    List<Category> getCategories();
+    List<CategoryDTO> getCategories();
 
-    Category findCategoryByName(String name) throws NotFoundException;
+    CategoryDTO findCategoryByName(String name) throws NotFoundException;
 }

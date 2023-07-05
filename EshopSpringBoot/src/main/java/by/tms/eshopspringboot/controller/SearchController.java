@@ -1,10 +1,10 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.dto.SearchPageDTO;
-import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.dto.ProductDTO;
+import by.tms.eshopspringboot.dto.SearchPageData;
+import by.tms.eshopspringboot.dto.SearchParams;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.utils.SearchParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,19 +28,19 @@ import static by.tms.eshopspringboot.utils.Constants.MappingPath.SEARCH;
 public class SearchController {
     private final ProductServiceAware productService;
     private final CategoryServiceAware categoryService;
-    private static final int PAGE_SIZE = 2;
+    private static final int PAGE_COUNT_RECORDS = 2;
 
     @GetMapping
     public ModelAndView searchResult(SearchParams searchParams, @RequestParam Optional<Integer> page) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_SIZE)).orElseGet(() -> PageRequest.of(0, PAGE_SIZE));
-        Page<Product> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
+        Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_COUNT_RECORDS)).orElseGet(() -> PageRequest.of(0, PAGE_COUNT_RECORDS));
+        Page<ProductDTO> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
 
-        SearchPageDTO searchPageDTO = new SearchPageDTO(categoryService.getCategories(), searchResult.get().toList(),
+        SearchPageData searchPageData = new SearchPageData(categoryService.getCategories(), searchResult.get().toList(),
                 searchResult.getNumber(), searchResult.getTotalPages(), searchParams);
 
-        modelAndView.addObject(PAGE_ATTRIBUTES, searchPageDTO);
+        modelAndView.addObject(PAGE_ATTRIBUTES, searchPageData);
 
         modelAndView.setViewName(SEARCH);
         return modelAndView;

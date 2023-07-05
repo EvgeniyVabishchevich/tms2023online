@@ -4,7 +4,7 @@ import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.UserServiceAware;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.ThreadContext;
+import org.jboss.logging.MDC;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 import static by.tms.eshopspringboot.utils.Constants.Attributes.ERROR_MESSAGE;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.CATEGORIES_PATH;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
+import static by.tms.eshopspringboot.utils.Constants.SessionAttributes.SHOPPING_CART_MAP;
+import static by.tms.eshopspringboot.utils.Constants.SessionAttributes.USER;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/login")
-@SessionAttributes({"cartProductsMap", "user"})
+@SessionAttributes({SHOPPING_CART_MAP, USER})
 public class SignInController {
     private final UserServiceAware userService;
     private final CategoryServiceAware categoryService;
@@ -47,9 +48,9 @@ public class SignInController {
     public ModelAndView logIn(@RequestParam String login) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
-        ThreadContext.put("conversationId", UUID.randomUUID().toString());
-        modelAndView.addObject("cartProductsMap", new HashMap<Long, Integer>());
-        modelAndView.addObject("user", userService.findByLogin(login));
+        MDC.put("userId", userService.findByLogin(login).getId());
+        modelAndView.addObject(SHOPPING_CART_MAP, new HashMap<Long, Integer>());
+        modelAndView.addObject(USER, userService.findByLogin(login));
 
         modelAndView.addObject("categories", categoryService.getCategories());
         modelAndView.setViewName(CATEGORIES_PATH);

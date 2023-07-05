@@ -19,11 +19,11 @@ import static com.tms.webshop.model.enums.RequestParamsConstants.PRODUCT_ID;
 public class RemoveFromCartController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public void removeProductFromCart(@SessionAttribute HashMap<Integer, Integer> cartProductsMap, @RequestParam(PRODUCT_ID) int productId) {
-        if (cartProductsMap.get(productId) > 1) {
-            cartProductsMap.compute(productId, (key, value) -> value - 1);
+    public void removeProductFromCart(@SessionAttribute HashMap<Integer, Integer> shoppingCartMap, @RequestParam(PRODUCT_ID) int productId) {
+        if (shoppingCartMap.get(productId) > 1) {
+            shoppingCartMap.compute(productId, (key, value) -> value - 1);
         } else {
-            cartProductsMap.remove(productId);
+            shoppingCartMap.remove(productId);
         }
     }
 }

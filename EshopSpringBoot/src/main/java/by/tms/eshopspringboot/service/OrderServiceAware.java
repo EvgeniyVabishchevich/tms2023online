@@ -1,12 +1,12 @@
 package by.tms.eshopspringboot.service;
 
-import by.tms.eshopspringboot.entity.Order;
+import by.tms.eshopspringboot.dto.OrderDTO;
 
 import java.util.List;
 
 public interface OrderServiceAware {
 
-    List<Order> getOrdersByUserId(Long userId);
+    List<OrderDTO> getOrdersByUserId(Long userId);
 
-    void addOrder(Order order);
+    void addOrder(OrderDTO order);
 }

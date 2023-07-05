@@ -12,9 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
-import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
 
 @Configuration
 @EnableWebSecurity
@@ -31,14 +28,14 @@ public class WebSecurityConfig {
                         .anyRequest()
                         .permitAll())
                 .formLogin(form -> form
-                        .loginPage(LOGIN)
+                        .loginPage("/login")
                         .permitAll()
                         .usernameParameter("login")
                         .passwordParameter("password")
-                        .successForwardUrl(LOGIN + "/success"))
+                        .successForwardUrl("/login/success"))
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
-                        .logoutSuccessUrl(LOGIN)
+                        .logoutSuccessUrl("/login")
                         .permitAll());
         return http.build();
     }

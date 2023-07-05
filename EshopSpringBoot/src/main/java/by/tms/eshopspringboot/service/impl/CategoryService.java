@@ -1,6 +1,8 @@
 package by.tms.eshopspringboot.service.impl;
 
+import by.tms.eshopspringboot.dto.CategoryDTO;
 import by.tms.eshopspringboot.entity.Category;
+import by.tms.eshopspringboot.entity.mapper.CategoryMapper;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.repository.CategoryRepository;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
@@ -13,26 +15,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryService implements CategoryServiceAware {
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
     @Override
-    public void saveCategory(Category category) {
-        categoryRepository.save(category);
+    public void saveCategory(CategoryDTO categoryDTO) {
+        categoryRepository.save(categoryMapper.categoryDTOToCategory(categoryDTO));
     }
 
     @Override
-    public Category findById(Long id) throws NotFoundException {
-        return categoryRepository.findById(id).orElseThrow(
+    public CategoryDTO findById(Long id) throws NotFoundException {
+        Category category = categoryRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(String.format("Cannot find category by id = %d", id)));
+
+        return categoryMapper.categoryToCategoryDTO(category);
     }
 
     @Override
-    public List<Category> getCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDTO> getCategories() {
+        List<Category> categoryList = categoryRepository.findAll();
+
+        return categoryList.stream()
+                .map(categoryMapper::categoryToCategoryDTO)
+                .toList();
     }
 
     @Override
-    public Category findCategoryByName(String name) throws NotFoundException {
-        return categoryRepository.findCategoryByName(name).orElseThrow(
+    public CategoryDTO findCategoryByName(String name) throws NotFoundException {
+        Category category = categoryRepository.findCategoryByName(name).orElseThrow(
                 () -> new NotFoundException(String.format("Cannot find category by name = %s", name)));
+
+        return categoryMapper.categoryToCategoryDTO(category);
     }
 }

@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.dto.ProductDTO;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,7 @@ import static by.tms.eshopspringboot.utils.Constants.Attributes.PRODUCTS_MAP;
 import static by.tms.eshopspringboot.utils.Constants.Attributes.TOTAL_PRICE;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.CART;
 import static by.tms.eshopspringboot.utils.Constants.RequestParameters.PRODUCT_ID;
+import static by.tms.eshopspringboot.utils.Constants.SessionAttributes.SHOPPING_CART_MAP;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,10 +29,10 @@ public class CartController {
     private final ProductServiceAware productService;
 
     @GetMapping
-    public ModelAndView showCart(@SessionAttribute("cartProductsMap") Map<Long, Integer> cartProductsMap) throws NotFoundException {
+    public ModelAndView showCart(@SessionAttribute(SHOPPING_CART_MAP) Map<Long, Integer> shoppingCartMap) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView(CART);
 
-        Map<Product, Integer> productsMap = productService.getProductsByIds(cartProductsMap);
+        Map<ProductDTO, Integer> productsMap = productService.getProductsByIds(shoppingCartMap);
         BigDecimal totalPrice = productsMap.keySet().stream()
                 .map(product -> product.getPrice().multiply(BigDecimal.valueOf(productsMap.get(product)))).reduce(BigDecimal.ZERO, BigDecimal::add);
 
@@ -42,11 +43,11 @@ public class CartController {
     }
 
     @DeleteMapping
-    public void removeProductFromCart(@SessionAttribute Map<Long, Integer> cartProductsMap, @RequestParam(PRODUCT_ID) Long productId) {
-        if (cartProductsMap.get(productId) > 1) {
-            cartProductsMap.compute(productId, (key, value) -> value - 1);
+    public void removeProductFromCart(@SessionAttribute Map<Long, Integer> shoppingCartMap, @RequestParam(PRODUCT_ID) Long productId) {
+        if (shoppingCartMap.get(productId) > 1) {
+            shoppingCartMap.compute(productId, (key, value) -> value - 1);
         } else {
-            cartProductsMap.remove(productId);
+            shoppingCartMap.remove(productId);
         }
     }
 }

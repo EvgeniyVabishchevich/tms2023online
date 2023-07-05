@@ -1,7 +1,6 @@
 package by.tms.eshopspringboot.security;
 
 import by.tms.eshopspringboot.entity.User;
-import by.tms.eshopspringboot.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
