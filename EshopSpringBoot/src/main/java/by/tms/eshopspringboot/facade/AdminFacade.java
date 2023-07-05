@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.facade;
 
-import by.tms.eshopspringboot.entity.Category;
-import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.dto.CategoryDTO;
+import by.tms.eshopspringboot.dto.ProductDTO;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ImageServiceAware;
@@ -27,7 +27,7 @@ public class AdminFacade {
     public void addCategory(MultipartFile image, String name) throws IOException {
         Long imageId = imageService.saveImage(image);
 
-        Category category = new Category(name, imageId);
+        CategoryDTO category = new CategoryDTO(name, imageId);
 
         categoryService.saveCategory(category);
     }
@@ -35,8 +35,8 @@ public class AdminFacade {
     public void addProduct(MultipartFile image, String name, String description, String category, String price) throws NotFoundException, IOException {
         Long imageId = imageService.saveImage(image);
 
-        Product product = new Product(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category));
+        ProductDTO productDTO = new ProductDTO(name, description, new BigDecimal(price), imageId, categoryService.findCategoryByName(category));
 
-        productService.saveProduct(product);
+        productService.saveProduct(productDTO);
     }
 }

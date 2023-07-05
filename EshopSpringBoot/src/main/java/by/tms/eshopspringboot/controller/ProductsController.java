@@ -1,6 +1,6 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.entity.Category;
+import by.tms.eshopspringboot.dto.CategoryDTO;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class ProductsController {
     public ModelAndView getCategoryProducts(@PathVariable String categoryName) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
-        Category category = categoryService.findCategoryByName(categoryName);
+        CategoryDTO categoryDTO = categoryService.findCategoryByName(categoryName);
 
-        modelAndView.addObject("category", category);
+        modelAndView.addObject("category", categoryDTO);
         modelAndView.setViewName(PRODUCTS);
 
         return modelAndView;

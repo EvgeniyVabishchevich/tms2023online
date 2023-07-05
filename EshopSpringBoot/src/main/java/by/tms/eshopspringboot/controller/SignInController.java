@@ -3,7 +3,6 @@ package by.tms.eshopspringboot.controller;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.UserServiceAware;
-import by.tms.eshopspringboot.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.jboss.logging.MDC;
 import org.springframework.security.access.prepost.PreAuthorize;

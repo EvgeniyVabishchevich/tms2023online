@@ -17,7 +17,7 @@ public class UserService implements UserServiceAware {
 
     @Override
     public void addUser(UserDTO userDTO) {
-        userRepository.save(userMapper.toUser(userDTO));
+        userRepository.save(userMapper.userDTOToUser(userDTO));
     }
 
     @Override
@@ -25,7 +25,7 @@ public class UserService implements UserServiceAware {
         User user = userRepository.findByLogin(login).orElseThrow(
                 () -> new NotFoundException(String.format("Cannot find user by login = %s", login)));
 
-        return userMapper.toDTO(user);
+        return userMapper.userToUserDTO(user);
     }
 }
 

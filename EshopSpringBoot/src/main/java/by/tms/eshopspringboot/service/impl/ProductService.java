@@ -1,7 +1,9 @@
 package by.tms.eshopspringboot.service.impl;
 
+import by.tms.eshopspringboot.dto.ProductDTO;
 import by.tms.eshopspringboot.dto.SearchParams;
 import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.entity.mapper.ProductMapper;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.repository.ProductRepository;
 import by.tms.eshopspringboot.repository.specification.SearchProductSpecification;
@@ -19,34 +21,37 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductService implements ProductServiceAware {
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
-    public void saveProduct(Product product) {
-        productRepository.save(product);
+    public void saveProduct(ProductDTO productDTO) {
+        productRepository.save(productMapper.productDTOToProduct(productDTO));
     }
 
     @Override
-    public Product findById(Long id) throws NotFoundException {
-        return productRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(String.format("Cannot find product by id = %d", id)));
+    public ProductDTO findById(Long id) throws NotFoundException {
+        return productMapper.productToProductDTO(productRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Cannot find product by id = %d", id))));
     }
 
     @Override
-    public List<Product> searchByParams(SearchParams searchParams) {
-        return productRepository.findAll(new SearchProductSpecification(searchParams));
+    public List<ProductDTO> searchByParams(SearchParams searchParams) {
+        List<Product> productList = productRepository.findAll(new SearchProductSpecification(searchParams));
+
+        return productList.stream()
+                .map(productMapper::productToProductDTO).toList();
     }
 
     @Override
-    public Page<Product> searchByParamsAndPageNumber(SearchParams searchParams, Pageable pageable) {
-        return productRepository.findAll(new SearchProductSpecification(searchParams), pageable);
+    public Page<ProductDTO> searchByParamsAndPageNumber(SearchParams searchParams, Pageable pageable) {
+        Page<Product> productPage = productRepository.findAll(new SearchProductSpecification(searchParams), pageable);
+
+        return productPage.map(productMapper::productToProductDTO);
     }
 
     @Override
-    public Map<Product, Integer> getProductsByIds(Map<Long, Integer> idToAmount) throws NotFoundException {
-        Map<Product, Integer> productsMap = new HashMap<>();
-
-       /* List<Product> products = productRepository.findByIdIn(new ArrayList<>(idToAmount.keySet()));
-        products.forEach(product -> productsMap.put(product, idToAmount.get(product.getId())));*/
+    public Map<ProductDTO, Integer> getProductsByIds(Map<Long, Integer> idToAmount) throws NotFoundException {
+        Map<ProductDTO, Integer> productsMap = new HashMap<>();
 
         for (Map.Entry<Long, Integer> entry : idToAmount.entrySet()) {
             productsMap.put(findById(entry.getKey()), entry.getValue());

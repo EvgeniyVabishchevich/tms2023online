@@ -11,7 +11,7 @@ public class LogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
 
-        if(userDTO != null) {
+        if (userDTO != null) {
             MDC.put("userId", ((UserDTO) request.getSession().getAttribute("user")).getId());
         }
 

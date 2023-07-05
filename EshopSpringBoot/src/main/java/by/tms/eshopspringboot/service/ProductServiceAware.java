@@ -1,7 +1,7 @@
 package by.tms.eshopspringboot.service;
 
+import by.tms.eshopspringboot.dto.ProductDTO;
 import by.tms.eshopspringboot.dto.SearchParams;
-import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +11,13 @@ import java.util.Map;
 
 public interface ProductServiceAware {
 
-    void saveProduct(Product product);
+    void saveProduct(ProductDTO productDTO);
 
-    Product findById(Long id) throws NotFoundException;
+    ProductDTO findById(Long id) throws NotFoundException;
 
-    Map<Product, Integer> getProductsByIds(Map<Long, Integer> idAmountMap) throws NotFoundException;
+    Map<ProductDTO, Integer> getProductsByIds(Map<Long, Integer> idAmountMap) throws NotFoundException;
 
-    List<Product> searchByParams(SearchParams searchParams);
+    List<ProductDTO> searchByParams(SearchParams searchParams);
 
-    Page<Product> searchByParamsAndPageNumber(SearchParams searchParams, Pageable pageable);
+    Page<ProductDTO> searchByParamsAndPageNumber(SearchParams searchParams, Pageable pageable);
 }

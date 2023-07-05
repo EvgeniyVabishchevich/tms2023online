@@ -1,8 +1,8 @@
 package by.tms.eshopspringboot.controller;
 
+import by.tms.eshopspringboot.dto.ProductDTO;
 import by.tms.eshopspringboot.dto.SearchPageData;
 import by.tms.eshopspringboot.dto.SearchParams;
-import by.tms.eshopspringboot.entity.Product;
 import by.tms.eshopspringboot.service.CategoryServiceAware;
 import by.tms.eshopspringboot.service.ProductServiceAware;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class SearchController {
         ModelAndView modelAndView = new ModelAndView();
 
         Pageable pageable = page.map(integer -> PageRequest.of(integer, PAGE_COUNT_RECORDS)).orElseGet(() -> PageRequest.of(0, PAGE_COUNT_RECORDS));
-        Page<Product> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
+        Page<ProductDTO> searchResult = productService.searchByParamsAndPageNumber(searchParams, pageable);
 
         SearchPageData searchPageData = new SearchPageData(categoryService.getCategories(), searchResult.get().toList(),
                 searchResult.getNumber(), searchResult.getTotalPages(), searchParams);

@@ -1,9 +1,8 @@
 package by.tms.eshopspringboot.controller;
 
-import by.tms.eshopspringboot.entity.Product;
+import by.tms.eshopspringboot.dto.ProductDTO;
 import by.tms.eshopspringboot.exception.NotFoundException;
 import by.tms.eshopspringboot.service.ProductServiceAware;
-import by.tms.eshopspringboot.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +32,7 @@ public class CartController {
     public ModelAndView showCart(@SessionAttribute(SHOPPING_CART_MAP) Map<Long, Integer> shoppingCartMap) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView(CART);
 
-        Map<Product, Integer> productsMap = productService.getProductsByIds(shoppingCartMap);
+        Map<ProductDTO, Integer> productsMap = productService.getProductsByIds(shoppingCartMap);
         BigDecimal totalPrice = productsMap.keySet().stream()
                 .map(product -> product.getPrice().multiply(BigDecimal.valueOf(productsMap.get(product)))).reduce(BigDecimal.ZERO, BigDecimal::add);
 
