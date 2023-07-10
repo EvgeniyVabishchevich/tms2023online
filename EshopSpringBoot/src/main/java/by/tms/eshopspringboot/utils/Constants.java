@@ -7,7 +7,7 @@ public final class Constants {
 
     @UtilityClass
     public static class MappingPath {
-        public static final String ADMIN = "admin/admin";
+        public static final String ADMIN = "admin";
         public static final String BUY = "buy";
         public static final String CART = "cart";
         public static final String CATEGORIES_PATH = "categories";
@@ -18,7 +18,8 @@ public final class Constants {
         public static final String PRODUCTS = "products";
         public static final String USER = "user";
         public static final String SEARCH = "search";
-        public static final String SEARCH_RESULT = "searchResult";
+        public static final String ACCESS_DENIED_ERROR = "/access-denied";
+        public static final String LOGIN_SUCCESS = "login/success";
     }
 
     @UtilityClass
@@ -29,6 +30,7 @@ public final class Constants {
 
     @UtilityClass
     public static class Attributes {
+        public static final String HTTP_STATUS = "httpStatus";
         public static final String PAGE_ATTRIBUTES = "pageAttributes";
         public static final String PRODUCTS_MAP = "productsMap";
         public static final String TOTAL_PRICE = "totalPrice";
