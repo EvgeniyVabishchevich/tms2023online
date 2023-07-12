@@ -7,7 +7,7 @@ public final class Constants {
 
     @UtilityClass
     public static class MappingPath {
-        public static final String ADMIN = "admin";
+        public static final String ADMIN = "admin/admin";
         public static final String BUY = "buy";
         public static final String CART = "cart";
         public static final String CATEGORIES_PATH = "categories";

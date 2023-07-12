@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.ADMIN;
 import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
@@ -25,6 +26,7 @@ import static by.tms.eshopspringboot.utils.Constants.MappingPath.USER;
 public class WebSecurityConfig {
     private static final String LOGIN_PARAMETER = "login";
     private static final String PASSWORD_PARAMETER = "password";
+    private static final String H2_CONSOLE_PATH = "/h2-console/**";
 
     private final UserDetailsService userDetailsService;
     private final AccessDeniedHandler accessDeniedHandler;
@@ -47,7 +49,9 @@ public class WebSecurityConfig {
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/" + LOGIN)
                         .permitAll())
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedHandler(accessDeniedHandler))
+                .headers().frameOptions().sameOrigin();
         return http.build();
     }
 
