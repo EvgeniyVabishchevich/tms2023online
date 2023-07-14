@@ -1,7 +1,6 @@
 package by.tms.eshopspringboot.security;
 
 import by.tms.eshopspringboot.enums.Role;
-import by.tms.eshopspringboot.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static by.tms.eshopspringboot.utils.Constants.MappingPath.ADMIN;
-import static by.tms.eshopspringboot.utils.Constants.MappingPath.LOGIN;
-import static by.tms.eshopspringboot.utils.Constants.MappingPath.USER;
+import static by.tms.eshopspringboot.utils.Constants.ControllerMappingPath.ADMIN;
+import static by.tms.eshopspringboot.utils.Constants.ControllerMappingPath.LOGIN;
+import static by.tms.eshopspringboot.utils.Constants.ControllerMappingPath.LOGIN_SUCCESS;
+import static by.tms.eshopspringboot.utils.Constants.ControllerMappingPath.USER;
 
 @Configuration
 @EnableWebSecurity
@@ -35,19 +34,19 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/" + ADMIN).hasRole(Role.ADMIN.name())
-                        .requestMatchers("/" + USER).hasRole(Role.USER.name())
+                        .requestMatchers(ADMIN).hasRole(Role.ADMIN.name())
+                        .requestMatchers(USER).hasRole(Role.USER.name())
                         .anyRequest()
                         .permitAll())
                 .formLogin(form -> form
-                        .loginPage("/" + LOGIN)
+                        .loginPage(LOGIN)
                         .permitAll()
                         .usernameParameter(LOGIN_PARAMETER)
                         .passwordParameter(PASSWORD_PARAMETER)
-                        .successForwardUrl("/" + Constants.MappingPath.LOGIN_SUCCESS))
+                        .successForwardUrl(LOGIN_SUCCESS))
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/" + LOGIN)
+                        .logoutSuccessUrl(LOGIN)
                         .permitAll())
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedHandler(accessDeniedHandler))
