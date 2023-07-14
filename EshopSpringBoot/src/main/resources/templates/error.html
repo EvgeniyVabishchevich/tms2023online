@@ -12,7 +12,7 @@
 
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
-        <h1 class="display-1 fw-bold">500</h1>
+        <h1 class="display-1 fw-bold" th:text="${httpStatus} ?: '500'"></h1>
         <div th:if="${errorMsg != null}">
             <p class="text-danger" th:text="'Ooops! ' + ${errorMsg}"></p>
         </div>

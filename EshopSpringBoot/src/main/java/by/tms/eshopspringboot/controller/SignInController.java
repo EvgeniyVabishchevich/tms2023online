@@ -48,7 +48,6 @@ public class SignInController {
     public ModelAndView logIn(@RequestParam String login) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
-        MDC.put("userId", userService.findByLogin(login).getId());
         modelAndView.addObject(SHOPPING_CART_MAP, new HashMap<Long, Integer>());
         modelAndView.addObject(USER, userService.findByLogin(login));
 
